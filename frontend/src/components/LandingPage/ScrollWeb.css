@@ -1,0 +1,41 @@
+.scroll-container {
+  width: 98vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scroll-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: scroll 10s linear infinite;
+  animation-delay: none;
+  margin-bottom: 100px;
+}
+
+.scroll-content img:hover {
+  cursor:crosshair;
+  transform: scale(1.1); 
+  z-index: 1.2; 
+  transition: all .5s;
+}
+
+.scroll-image {
+  width: 420px; 
+  height: 252px;
+  border-radius: 25px;
+  transform-style: preserve-3d; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Keyframes for the scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

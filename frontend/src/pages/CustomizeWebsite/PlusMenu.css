@@ -1,0 +1,133 @@
+.plus-menu-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 1000;
+  margin-left: 60px;
+}
+
+.plus-menu {
+  background-color: #f7f8f8;
+  width: 47%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  justify-content: flex-start;
+  overflow-y: auto;
+  /* border: 2px solid red; */
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: rgb(242, 242, 242);
+  border-top: 7px solid blue;
+}
+
+.menu-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-icon {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.menu-body {
+  display: flex;
+  flex: 1;
+}
+
+.menu-section {
+  border-right: 1px solid black;
+  width: 150px;
+}
+
+.menu-section ul {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.menu-section ul li {
+  margin-bottom: 10px;
+  width: 150px;
+  text-align: justify;
+}
+
+.menu-section ul li a {
+  display: inline-block; 
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
+  border-radius: 20px; 
+  padding: 0px 12px;
+}
+
+.menu-section ul li a:hover {
+  color: #007BFF;
+  background-color: #d6e6fe;
+}
+
+.menu-preview {
+  flex: 2;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.menu-preview h1, .menu-preview h2,
+.menu-preview h3, .menu-preview h4,
+.menu-preview h5, .menu-preview h6 {
+  width: 370px;
+  color: #333;
+  transition: background-color 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
+  border-radius: 20px; 
+  padding: 0px 12px;
+  margin-bottom: 10px;
+}
+
+.menu-preview h1:hover, .menu-preview h2:hover,
+.menu-preview h3:hover, .menu-preview h4:hover,
+.menu-preview h5:hover, .menu-preview h6:hover {
+  opacity: 70%;
+  cursor: pointer;
+}
+
+.menu-preview p {
+  width: 310px;
+  color: #333;
+  transition: background-color 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
+  border-radius: 20px; 
+  padding: 5px 12px;
+  margin-bottom: 10px;
+}
+
+.menu-preview p:hover{
+  opacity: 70%;
+  cursor: pointer;
+}
+
+.themedText, .titles, .paraElement, .collapsibleText{
+    height: 100vh;
+    display: block;
+}
+
+/* .themedText, .titles{
+    height: 100vh;
+    display: block;
+} */
+
+.titles h1{
+    margin-bottom: 20px;
+}
+
+.paraElement p{
+    width: 350px;
+    text-align: justify;
+    margin-bottom: 30px;
+}

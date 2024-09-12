@@ -1,0 +1,61 @@
+/* General Layout */
+.full-height {
+    height: 100vh;
+  }
+  
+  .center-content {
+    display: grid;
+    place-content: center;
+  }
+  
+  .background-white {
+    background-color: #ffffff;
+  }
+  
+  .padding-x {
+    padding-left: 1rem; /* 16px */
+    padding-right: 1rem; /* 16px */
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  /* SVG */
+  .svg-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 14rem; /* 56px */
+    width: auto;
+    color: #000000;
+  }
+  
+  .svg-icon-sm {
+    height: 16rem; /* 64px */
+  }
+  
+  /* Heading */
+  .heading {
+    margin-top: 1.5rem; /* 24px */
+    font-size: 1.5rem; /* 24px */
+    font-weight: 700;
+    color: #111827; /* Gray 900 */
+  }
+
+  .heading-large {
+    font-size: 6rem; /* 96px */
+    font-weight: 900; /* Black */
+    color: #e5e7eb; /* Gray 200 */
+  }
+  
+  .heading-sm {
+    font-size: 2.25rem; /* 36px */
+  }
+  
+  /* Paragraph */
+  .paragraph {
+    margin-top: 1rem; /* 16px */
+    color: #6b7280; /* Gray 500 */
+  }
+  

@@ -1,0 +1,84 @@
+.scroll-container {
+  width: 83%;
+  overflow: hidden;
+  margin: auto;
+  height: 80vh;
+}
+
+.scroll-content {
+  display: inline-flex;
+  animation: scroll 10s linear infinite;
+  animation-delay: 0ms;
+  margin-top: 60px;
+}
+
+.scroll-content img:hover {
+  cursor:crosshair;
+  transform: scale(1.25); 
+  z-index: 1.2; 
+  transition: all .5s;
+}
+
+.schedulePost-container {
+  position: relative;
+  display: inline-block;
+}
+
+.pyramid {
+  position: absolute;
+  top: -20px; 
+  right: -170px;   
+  width: 300px; 
+  background: transparent;
+}
+
+.tube {
+  position: absolute;
+  bottom: -50px; 
+  left: -130px; 
+  width: 300px; 
+  background: transparent;
+}
+
+.schedulePost {
+  display: block;
+  margin: 0 auto; 
+  height: 800px;
+  width: 900px;
+}
+
+.scroll-image {
+  width: 250px; 
+  height: 480px;
+  margin-right: 50px;
+  border-radius: 10px;
+  transform-style: preserve-3d; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Keyframes for the scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.boxx{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.boxx h1{
+  font-size: 2.5rem;
+}
+
+.boxx p{
+  font-size: 20px;
+  text-align: center;
+}

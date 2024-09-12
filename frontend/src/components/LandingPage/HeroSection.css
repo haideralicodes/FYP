@@ -1,0 +1,68 @@
+.section{
+    height: 87vh;
+    width: 65vw;
+    display: flex;
+    margin:auto;
+}
+
+.actionHeading{
+    font-family: "Anton SC", sans-serif;
+}
+
+.left, .right{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left{
+    margin-right: 120px;
+}
+
+.left h1{
+    font-size: 80px;
+}
+
+.left p{
+    font-size: 20px;
+    width: 700px;
+    font-family: "Anton SC", sans-serif;
+}
+
+.laptop{
+    height: 700px;
+    width:680px;
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+.mainHeading{
+    display:flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-right: 80px;
+}
+
+.btnz{
+    margin-top: 20px;
+    display: flex;
+}
+
+
+.cog {
+    position: absolute; 
+    top: 40%;  
+    left: 81%; 
+    transform: translate(-50%, -50%); 
+    height: 280px; 
+    width: 280px; 
+}
+
+/* 
+.gradient{
+    background: linear-gradient(90deg, rgb(17, 17, 17) 0%, rgb(115, 37, 198) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */

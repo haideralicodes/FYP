@@ -1,0 +1,61 @@
+:root {
+  --viewport-width: 100%;
+}
+
+.preview{
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 1px 20px 20px rgba(0, 0, 0, 0.9);
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.previewRectangle{
+    width: var(--viewport-width); /* most imp line */
+    width: 97%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.preview img{
+    height: 40px;
+}
+
+.previewbar{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.mybtns{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.mybtns a{
+    color: #116fff;
+    font-weight: none;
+}
+
+.mybtns button{
+    background-color: #116fff;
+    color: white;
+    height: 35px;
+    width: 90px;
+    border: none;
+    border-radius: 20px;
+}
+
+.mybtns button:hover{
+    cursor: pointer;
+}
+
+.laptop:hover, .mobile:hover {
+  color: red;
+  cursor: pointer;
+}
