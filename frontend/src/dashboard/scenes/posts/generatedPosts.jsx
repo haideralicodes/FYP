@@ -1,63 +1,83 @@
-import React, { useState } from 'react';
-import { Box, Typography, Grid, Card, CardContent, CardMedia } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Grid, Card, CardContent, CardMedia, Skeleton } from "@mui/material";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const GeneratedPosts = () => {
-  const [selectedPostIndex, setSelectedPostIndex] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { generatedImages = [], generatedData = [], loading } = location.state || {};
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  const generatedPosts = [
-    {
-      content: "Pack your bags, we're taking you on a dream 2-week holiday in Mexico for under $999! 🇲🇽 Say 'Hola' to endless sunshine and sandy beaches.",
-      hashtags: "#MexicoHoliday #TravelDeal",
-      image: "/path/to/image1.jpg",
-    },
-    {
-      content: "🌴 Swap your office view for a beach-side vista! 2 unforgettable weeks in sunny Mexico for under $999.",
-      hashtags: "#TravelGoals #MexicoGetaway",
-      image: "/path/to/image2.jpg",
-    },
-    {
-      content: "Unwind in paradise for less! Experience the enchanting beauty of Mexico on a 2-week holiday.",
-      hashtags: "#EpicEscape #MexicoOnBudget",
-      image: "/path/to/image3.jpg",
+  useEffect(() => {
+    if (generatedImages.length) {
+      const image = new Image();
+      image.src = generatedImages[0];
+      image.onload = () => setIsImageLoaded(true);
     }
-  ];
+  }, [generatedImages]);
+
+  const handleCardClick = (index) => {
+    const selectedPost = {
+      image: generatedImages[index],
+      content: generatedData[index].text,
+      hashtags: generatedData[index].hashtags
+    };
+    navigate('/dashboard/GeneratedPostScheduler', { state: { selectedPost } });
+  };
 
   return (
     <Box p={4}>
-      <Typography variant="h2" mb={3} textAlign="center" sx={{ fontSize: '40px' }}>
+      <Typography variant="h2" mb={3} textAlign="center" sx={{ fontSize: '30px' }}>
         AI Social Post Generator
       </Typography>
 
-      <Grid container spacing={3}>
-        {generatedPosts.map((post, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card 
-              variant={selectedPostIndex === index ? "outlined" : "elevation"}
-              elevation={selectedPostIndex === index ? 8 : 2}
-              sx={{ 
-                cursor: 'pointer', 
-                borderColor: selectedPostIndex === index ? 'primary.main' : 'transparent', 
-                borderRadius: '16px' // Adjust this value to make corners more or less rounded
-              }}
-              onClick={() => setSelectedPostIndex(index)}
-            >
-              <CardContent>
-                <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.2rem' }}>
-                  {post.content}
-                </Typography>
-                <Typography variant="caption" display="block" color="text.secondary" sx={{ fontSize: '1.1rem', mt: 1 }}>
-                  {post.hashtags}
-                </Typography>
-              </CardContent>
-              <CardMedia
-                component="img"
-                height="400"
-                image={post.image}
-                alt="Generated Post Image"
-              />
-            </Card>
-          </Grid>
-        ))}
+      <Grid container spacing={3} alignItems="stretch">
+        {loading ? (
+          // Display skeletons while loading
+          Array(3).fill(0).map((_, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card elevation={2} sx={{ borderRadius: '16px' }}>
+                <CardContent>
+                  <Skeleton variant="text" width="100%" height={10} animation="wave" />
+                  <br />
+                  <Skeleton variant="text" width="100%" height={10} animation="wave" />
+                </CardContent>
+                <Skeleton style={{marginLeft:"5px"}}  variant="rectangular" width={350} height={400} animation="wave" />
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          generatedData.map((data, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card 
+                elevation={2}
+                sx={{ 
+                  cursor: 'pointer', 
+                  borderRadius: '16px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%'
+                }}
+                onClick={() => handleCardClick(index)}
+              >
+                <CardContent>
+                  <Typography variant="body1" color="black" sx={{ fontSize: '1rem' }}>
+                    {data.text || 'No text generated'}
+                    <br />
+                    {data.hashtags && <Typography variant="body2" color="blue" sx={{ fontSize: '1rem' }}>{data.hashtags}</Typography>}
+                  </Typography>
+                </CardContent>
+
+                <CardMedia
+                  component="img"
+                  height="400"
+                  image={generatedImages[index]}  
+                  alt="Generated Post Image"
+                />
+              </Card>
+            </Grid>
+          ))
+        )}
       </Grid>
     </Box>
   );

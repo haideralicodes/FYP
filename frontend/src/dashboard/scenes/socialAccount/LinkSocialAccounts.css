@@ -1,0 +1,99 @@
+.socialMediaAccounts{
+    height: 70vh;
+    width: auto;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.socialCard{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.socialAccountLogo{
+    position: absolute;
+    top: -30px;
+    width: 50px; 
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.socialAccountLogo img{
+    left: 100px;
+    border-radius: 100%;
+    width: 100px; 
+    height: 100px;
+}
+
+.socailAccountLinkCard{
+    background-color: white;
+    border-radius: 15px;
+    height: 280px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.socailAccountLinkCard h2{
+    margin-top: 25%;
+    font-family: Segoe Script;
+    font-style: italic;
+    font-size: 25px;
+    color: rgb(92, 92, 92);
+}
+
+.line{
+    border: 1px solid rgb(92, 92, 92);
+    width: 300px;
+}
+
+.connectSocialProfileButton{
+    margin-top: 4%;
+    border: 2px solid rgb(57, 57, 157);
+    color: rgb(57, 57, 157);
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 280px;
+    font-size: 18px;
+    transition: 0.3s ease-out;
+}
+
+.connectSocialProfileButton:hover{
+    background-color: rgb(57, 57, 157);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+
+.LogoutProfileButton{
+    margin-top: 4%;
+    border: 2px solid red;
+    color: red;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 280px;
+    font-size: 18px;
+    transition: 0.3s ease-out;
+}
+
+.LogoutProfileButton:hover{
+    background-color: red;
+    border: none;
+    color: white;
+    cursor: pointer;
+}

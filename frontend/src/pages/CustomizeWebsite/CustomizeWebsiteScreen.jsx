@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import CustomizeWebsiteSidebar from './CustomizeWebsiteSidebar';
 import HomePage from '../../Templates/FashionStoreOne/HomePage';
 import PlusMenu from './PlusMenu';
+import './CustomizeWebsiteScreen.css'
 
 function CustomizeWebsiteScreen() {
   const [showMenu, setShowMenu] = useState(false);
-  const [newHeading, setNewHeading] = useState('');
+  const [headings, setHeadings] = useState([]);
 
   const handleItemClick = (id) => {
     if (id === 'plus') {
@@ -17,12 +18,16 @@ function CustomizeWebsiteScreen() {
     setShowMenu(false);
   };
 
-  const handleAddHeading=(heading)=>{
-    setNewHeading(heading)
-  }
+  const handleAddHeading = (newHeading) => {
+    setHeadings([newHeading, ...headings]);
+  };
+
+  const handleAddSectionClick = () => {
+    setShowMenu(true);
+  };
 
   return (
-    <div style={{ display: 'flex', width: '98.9vw' }}>
+    <div style={{ display: 'flex', width: '100vw' }}>
       <CustomizeWebsiteSidebar onItemClick={handleItemClick} />
       {showMenu && (
         <div style={{ width: '60%' }}>
@@ -30,7 +35,7 @@ function CustomizeWebsiteScreen() {
         </div>
       )}
       <div style={{ width: showMenu ? '60%' : 'calc(100vw - 60px)', marginLeft: showMenu ? '0' : '60px' }}>
-        <HomePage newHeading={newHeading} />
+        <HomePage onAddSectionClick={handleAddSectionClick} />
       </div>
     </div>
   );

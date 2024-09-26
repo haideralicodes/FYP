@@ -7,11 +7,12 @@ const userRoutes = require('./controller/userRoutes');
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
+
+
+const mongoUrl = 'mongodb+srv://haideralicodes:bcAZeKCMqmfOIodf@cluster0.l8h9q.mongodb.net/'
 
 mongoose.connect('mongodb://127.0.0.1:27017/userDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
 }).then(() => {
   console.log('DB connected...');
 }).catch((err) => {

@@ -1,7 +1,48 @@
 .hero-section {
   text-align: center;
   background-color: #effe8a;
-  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: ease-in-out;
+}
+
+.hero-section:hover{
+  cursor: pointer;
+}
+
+.editable {
+  position: relative;
+}
+
+.editable:focus {
+  outline: none;
+  border: 2px solid blue;
+}
+
+.editable:focus::before,
+.editable:focus::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #3b82f6; 
+  display: block;
+}
+
+.editable:focus::before {
+  top: -7px;
+  left: -7px;
+}
+
+.editable:focus::after {
+  bottom: -7px;
+  right: -7px;
+}
+
+.editable:hover{
+  cursor: pointer;
 }
 
 .hero-section h1 {
@@ -14,15 +55,6 @@
   margin: 10px 0;
   color: white;
 }
-
-/* .hero-section img {
-  width: 559px;
-  height: 667px;
-  margin-top: 20px;
-  object-fit: cover;
-  border-top-right-radius: 280px;
-  border-top-left-radius: 280px;
-} */
 
 .hero-section img {
   max-width: 80%; 

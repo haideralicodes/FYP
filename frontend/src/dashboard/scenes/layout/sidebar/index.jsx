@@ -3,12 +3,23 @@ import { FaHome, FaDollarSign, FaRocket, FaUsersCog, FaEnvelope, FaClipboardList
 import { useContext, useState } from "react";
 import { tokens } from "../../../theme";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar"; // Add SubMenu for Planner
-import { CalendarTodayOutlined, MenuOutlined, LogoutOutlined } from "@mui/icons-material";
+import { CalendarTodayOutlined, MenuOutlined, LogoutOutlined, AccountCircle } from "@mui/icons-material";
 import logo from "../../../../assets/logo.png";
 import Item from "./Item";
 import { ToggledContext } from "../../../DashboardApp";
-import { useNavigate } from 'react-router-dom';
-import Posts from "../../posts";
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
+import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
+import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
+import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
+import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import TurnedInNotOutlinedIcon from '@mui/icons-material/TurnedInNotOutlined';
+import HomeIcon from '../../../../assets/home.png'
+
 
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -17,6 +28,7 @@ const SideBar = () => {
   const colors = tokens(theme.palette.mode);
 
   const navigate = useNavigate();
+  const location = useLocation();
   
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -24,25 +36,28 @@ const SideBar = () => {
     navigate('/login');
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <Sidebar
-      backgroundColor={colors.primary[400]}
+      backgroundColor={colors.primary[400]}  
       rootStyles={{
-        width:"19vw",
-        border: 0,
         height: "100%",
+        boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.1)',
       }}
       collapsed={collapsed}
       onBackdropClick={() => setToggled(false)}
       toggled={toggled}
       breakPoint="md"
     >
+      
       <Menu
         menuItemStyles={{
-          button: { ":hover": { background: "transparent" } },
+          button: { ":hover": { background: "transparent" }, borderRadius: "30px", },
         }}
       >
         <MenuItem
+        sx={{borderRadius:"30px", border:'2px solid red'}}
           rootStyles={{
             margin: "20px 0 60px 0",
             color: colors.gray[100],
@@ -67,7 +82,6 @@ const SideBar = () => {
                 <img
                   style={{ width: "30px", height: "30px", borderRadius: "8px" }}
                   src={logo}
-                  alt="logo"
                 />
                 <Typography
                   variant="h4"
@@ -86,19 +100,26 @@ const SideBar = () => {
         </MenuItem>
       </Menu>
 
-      <Box mb={10} pl={collapsed ? undefined : "10%"}>
+      <Box>
         <Menu
+          active={isActive("/dashboard")}
           menuItemStyles={{
             button: {
-              color:"black",
-              borderRadius:"30px",
-              fontSize:"16.5px",
+              color: isActive("/dashboard") ? "#ffffff" : "black",
+              background: isActive("/dashboard") ? "#000000" : "transparent",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
               width:"220px",
+              transition: "all 0.3s ease-in-out",
               ":hover": {
-                color: "white",
-                background: "black",
-                borderRadius:"30px",
-                transition: ".4s ease",
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
               },
             },
           }}
@@ -107,21 +128,29 @@ const SideBar = () => {
             title="Home"
             path="/dashboard"
             colors={colors}
-            icon={<FaHome />}
+            icon={<OtherHousesOutlinedIcon />}
           />
         </Menu>
+
         <Menu
+          active={isActive("/dashboard/store")}
           menuItemStyles={{
             button: {
-              fontSize:"16.5px",
-              color:"black",
-              borderRadius:"30px",
+              color: isActive("/dashboard/store") ? "#ffffff" : "black",
+              background: isActive("/dashboard/store") ? "#000000" : "transparent",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
               width:"220px",
+              transition: "all 0.3s ease-in-out",
               ":hover": {
-                color: "white",
-                background: "black",
-                borderRadius:"30px",
-                transition: ".4s ease",
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
               },
             },
           }}
@@ -130,19 +159,69 @@ const SideBar = () => {
             title="Store Setup"
             path="/dashboard/store"
             colors={colors}
-            icon={<FaRocket />}
+            icon={<RocketLaunchOutlinedIcon />}
           />
+        </Menu>
+
+        <Menu
+          active={isActive("/dashboard/team")}
+          menuItemStyles={{
+            button: {
+              color: isActive("/dashboard/team") ? "#ffffff" : "black",
+              background: isActive("/dashboard/team") ? "#000000" : "transparent",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
+              width:"220px",
+              transition: "all 0.3s ease-in-out",
+              ":hover": {
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
+              },
+            },
+          }}
+        >
           <Item
             title="Set Payment"
             path="/dashboard/team"
             colors={colors}
-            icon={<FaDollarSign />}
+            icon={<PaidOutlinedIcon />}
           />
+        </Menu>
+
+        <Menu
+          active={isActive("/dashboard/LinkSocialAccounts")}
+          menuItemStyles={{
+            button: {
+              color: isActive("/dashboard/LinkSocialAccounts") ? "#ffffff" : "black",
+              background: isActive("/dashboard/LinkSocialAccounts") ? "#000000" : "transparent",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
+              width:"220px",
+              transition: "all 0.3s ease-in-out",
+              ":hover": {
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
+              },
+            },
+          }}
+        >
           <Item
-            title="Social Account"
-            path="/dashboard/contacts"
+            title="Social Accounts"
+            path="/dashboard/LinkSocialAccounts"
             colors={colors}
-            icon={<FaUsersCog />}
+            icon={<DashboardCustomizeOutlinedIcon />}
           />
         </Menu>
         
@@ -150,66 +229,144 @@ const SideBar = () => {
         <Menu
           menuItemStyles={{
             button: {
-              fontSize:"16.5px",
               color:"black",
-              borderRadius:"30px",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
               width:"220px",
+              transition: "all 0.3s ease-in-out",
               ":hover": {
-                color: "bkack",
-                background: "grey",
-                borderRadius:"30px",
-                transition: ".4s ease",
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
               },
             },
           }}
         >
           <SubMenu
             label="Planner"
-            icon={<FaClipboardList />}  // Planner icon
+            icon={<EventNoteOutlinedIcon />}  
+            active={isActive("/dashboard/GeneratePosters")}
             style={{
-              fontSize: "16.5px",
-              color: "black",
-              borderRadius: "30px",
+              fontSize: "17px",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              color: isActive("/dashboard/GeneratePosters") ? "#ffffff" : "black",
+              background: isActive("/dashboard/GeneratePosters") ? "#000000" : "transparent",
+              transition: "all 0.3s ease-in-out",
               ":hover": {
-                color: "white",
-                background: "black",
+                color: "#ffffff",
+                background: "#000000",
                 borderRadius: "30px",
-                transition: ".4s ease",
               },
             }}
           >
             <Item
               title="Posts"
-              path="/dashboard/posts"
+              path="/dashboard/GeneratePosters"
               colors={colors}
-              icon={<FaEnvelope />}  // Icon for Posts
+              icon={<StickyNote2OutlinedIcon />}  
             />
             <Item
               title="Calendar"
               path="/dashboard/calendar"
               colors={colors}
-              icon={<CalendarTodayOutlined />}  // Icon for Calendar
+              icon={<CalendarMonthOutlinedIcon />}  
             />
           </SubMenu>
+        </Menu>
+
+        <Menu
+          active={isActive("/dashboard/userProfile")}
+          menuItemStyles={{
+            button: {
+              color: isActive("/dashboard/userProfile") ? "#ffffff" : "black",
+              background: isActive("/dashboard/userProfile") ? "#000000" : "transparent",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
+              width:"220px",
+              transition: "all 0.3s ease-in-out",
+              ":hover": {
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
+              },
+            },
+          }}
+        >
+          <Item
+            title="Saved Posts"
+            path="/dashboard/ViewSavedPosts"
+            colors={colors}
+            icon={<TurnedInNotOutlinedIcon />}  
+          />
+
+        </Menu>
+
+        <Menu
+          active={isActive("/dashboard/userProfile")}
+          menuItemStyles={{
+            button: {
+              color: isActive("/dashboard/userProfile") ? "#ffffff" : "black",
+              background: isActive("/dashboard/userProfile") ? "#000000" : "transparent",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
+              width:"220px",
+              transition: "all 0.3s ease-in-out",
+              ":hover": {
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
+              },
+            },
+          }}
+        >
+          <Item
+            title="My Profile"
+            path="/dashboard/userProfile"
+            colors={colors}
+            icon={<AccountBoxOutlinedIcon />}  // Icon for Profile
+          />
+
         </Menu>
 
         <Menu
           onClick={handleLogout}
           menuItemStyles={{
             button: {
-              fontSize:"16.5px",
               color:"black",
-              borderRadius:"30px",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
               width:"220px",
+              transition: "all 0.3s ease-in-out",
               ":hover": {
-                color: "white",
-                background: "black",
-                borderRadius:"30px",
-                transition: ".4s ease",
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
               },
             },
           }}
         >
+
           <Item
             title="Logout"
             colors={colors}
@@ -217,6 +374,7 @@ const SideBar = () => {
           />
         </Menu>
       </Box>
+
     </Sidebar>
   );
 };

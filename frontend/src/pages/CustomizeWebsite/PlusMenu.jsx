@@ -48,12 +48,12 @@ const PlusMenu = ({ onClose, onAddHeading }) => {
                         <div ref={headingsRef} className='themedText'>
                             <p style={{ fontSize: "19px" }}>Themed Text</p>
                             <hr />
-                            <h1 onClick={() => addHeading('Hello World')} style={{fontSize:"57px"}}>Add Heading 1</h1>
-                            <h2 onClick={() => addHeading('Hello World')} style={{fontSize:"48px"}}>Add Heading 2</h2>
-                            <h3 onClick={() => addHeading('Hello World')} style={{fontSize:"39px"}}>Add Heading 3</h3>
-                            <h4 onClick={() => addHeading('Hello World')} style={{fontSize:"30px"}}>Add Heading 4</h4>
-                            <h5 onClick={() => addHeading('Hello World')} style={{fontSize:"22px"}}>Add Heading 5</h5>
-                            <h6 onClick={() => addHeading('Hello World')} style={{fontSize:"17px"}}>Add Heading 6</h6>
+                            <h1 onClick={() => addHeading('Add Heading 1')} style={{fontSize:"57px"}}>Add Heading 1</h1>
+                            <h2 onClick={() => addHeading('Add Heading 2')} style={{fontSize:"48px"}}>Add Heading 2</h2>
+                            <h3 onClick={() => addHeading('Add Heading 3')} style={{fontSize:"39px"}}>Add Heading 3</h3>
+                            <h4 onClick={() => addHeading('Add Heading 4')} style={{fontSize:"30px"}}>Add Heading 4</h4>
+                            <h5 onClick={() => addHeading('Add Heading 5')} style={{fontSize:"22px"}}>Add Heading 5</h5>
+                            <h6 onClick={() => addHeading('Add Heading 6')} style={{fontSize:"17px"}}>Add Heading 6</h6>
                             <br />
                             <p>I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>
                             <p>I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>

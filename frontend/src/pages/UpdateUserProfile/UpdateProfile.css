@@ -1,0 +1,181 @@
+.mainProfileBox{
+    height: 90vw;
+    width: 80vw;
+    display: flex;
+    background-color: white;
+    gap: 30px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 30px;
+}
+
+.info h1{
+    margin-left: 10px;
+    margin-top: 50px;
+}
+
+.profileContainer{
+    height: 30%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    background-color: #eeecec;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+
+.profileImageInfoCard{
+    background-image: url('../../assets/banner.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 180px;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    cursor: pointer;
+}
+
+.profileImageInfoCard .userImg img{
+    height: 152px;
+    width: 152px;
+    border-radius: 100px;
+    border: 5px solid white;
+    position: relative;
+    margin-left: 20px;
+    top: 100px;
+}
+
+.userImg h3{
+    position: relative;
+    margin-left: 40px;
+    top: 125px;
+    font-size: 20px;
+}
+
+.userImg{
+    display: flex;
+    flex-direction: column;
+}
+
+.uploadBtns{
+    margin-left: 20px;
+    display: flex;
+    gap: 30px;
+    margin-top: 150px;
+}
+
+.uploadImgBtn{
+    color: white;
+    font-size: 18px;
+    background-color: black;
+    border: 2px solid black;
+    width: 120px;
+    height: 40px;
+    border-radius: 50px;
+    text-align: center;
+    transition: 0.3s ease-out;
+}
+
+.uploadImgBtn:hover{
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+    cursor: pointer;
+}
+
+.saveImgBtn{
+    color: rgb(255, 62, 62);
+    background-color: transparent;
+    font-size: 18px;
+    border: 2px solid rgb(255, 62, 62);
+    width: 80px;
+    height: 40px;
+    border-radius: 50px;
+    text-align: center;
+    transition: 0.3s ease-out;
+}
+
+.saveImgBtn:hover{
+    background-color: rgb(255, 62, 62);
+    border: 2px solid rgb(255, 62, 62);
+    color: white;
+    cursor: pointer;
+}
+
+.profileInfo{
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    background-color: #eeecec;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+
+.profileInfo h1{
+    margin: 20px;
+}
+
+.profileInfo label{
+    margin-left: 20px;
+}
+
+.profileInfo input{
+    margin-left: 20px;
+    width: 90%;
+    background-color: white;
+    border: 2px solid rgb(217, 217, 217);
+    cursor: pointer;
+}
+
+.bioInfo{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 30px;
+}
+
+.bio, .socailInfo{
+    height: 50%;
+}
+
+.bio{
+    margin-top: 125px;
+    height: 24%;
+    width: 97%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeecec;
+    border-radius: 20px;
+}
+
+.bio h1{
+    margin-left: -300px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.bioDescription{
+    height: 100%;
+    width: 93%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(217, 217, 217);
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.bioDescription p{
+    margin-left: 10px;
+}

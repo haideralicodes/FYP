@@ -5,21 +5,18 @@ import TopPicks from '../FashionStoreOne/TopPicks';
 import SpecialOffers from '../FashionStoreOne/SpecialOffers';
 import OurStory from '../FashionStoreOne/OurStory';
 import Footer from '../FashionStoreOne/Footer';
-import PreviewScreen from '../../pages/CustomizeWebsite/PreviewScreen';
 
-function HomePage({newHeading}) {
-
+function HomePage({ onAddSectionClick }) {
   return (
     <div>
-      <PreviewScreen hidden={true}/>
-      <div>
-        <Navbar />
-        <HeroSection newHeading={newHeading} />
-        <TopPicks />
-        <SpecialOffers />
-        <OurStory />
-        <Footer />
-      </div>
+      <Navbar />
+
+
+      <HeroSection onAddSectionClick={onAddSectionClick} />
+      <TopPicks />
+      <SpecialOffers />
+      <OurStory />
+      <Footer />
     </div>
   );
 }

@@ -24,7 +24,7 @@ function Navbar() {
           <li><Link to="/">Help</Link></li>
         </ul>
         <div className="buttons">
-          <button className='signup' onClick={navigateToSignup}>Get Started</button>
+          <button className='signup' onClick={navigateToSignup}>Sign Up</button>
         </div>
       </nav>
     </div>

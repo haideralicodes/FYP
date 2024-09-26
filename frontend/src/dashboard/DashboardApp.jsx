@@ -16,7 +16,7 @@ function DashboardApp() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ToggledContext.Provider value={values}>
-          <Box sx={{ display: "flex", height: "100vh", maxWidth: "100%" }}>
+          <Box sx={{ display: "flex", height: "100vh", maxWidth: "100%"}}>
             <SideBar />
             <Box
               sx={{
@@ -24,11 +24,11 @@ function DashboardApp() {
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
-                maxWidth: "100%",
+                maxWidth: "100%"
               }}
             >
               <Navbar />
-              <Box sx={{ overflowY: "auto", flex: 1, maxWidth: "100%" }}>
+              <Box sx={{ overflowY: "auto", flex: 1, maxWidth: "100%"}}>
                 <Outlet />
               </Box>
             </Box>

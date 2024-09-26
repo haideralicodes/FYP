@@ -11,9 +11,7 @@ function PrimaryBtn() {
   }
 
   return (
-    <button className='PrimaryBtn' onClick={navigateToSignup}>
-      Get Started
-    </button>
+    <button className='PrimaryBtn' onClick={navigateToSignup}>Get Started</button>
   );
 }
 

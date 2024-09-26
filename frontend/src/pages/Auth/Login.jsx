@@ -3,11 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [alertType, setAlertType] = useState(null); // New state for alert type
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -20,12 +24,23 @@ const Login = () => {
       });
 
       if (response.ok) {
-        const { token } = await response.json();
+        const { token, userId } = await response.json();
         localStorage.setItem('token', token);
-        navigate('/dashboard');
-      } else {
+        localStorage.setItem('userId', userId);
+        console.log("\n Token: ", token)
+        console.log("\n User Id: ", userId)
+        setAlertType('success');
+          navigate('/dashboard');
+      } 
+      else {
         const data = await response.json();
-        setError(data.message || 'Login failed');
+        if (data.message === 'User not found') {
+          setAlertType('email-error');
+        } else if (data.message === 'Incorrect password') {
+          setAlertType('password-error');
+        } else {
+          setError(data.message || 'Login failed');
+        }
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -48,7 +63,10 @@ const Login = () => {
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem('token', data.token);
-        navigate('/dashboard');
+        setAlertType('success'); // Show success alert for Google login
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 1500);
       } else {
         const data = await res.json();
         setError(data.message || 'Google login failed');
@@ -66,6 +84,29 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      {/* Alert */}
+      <Stack sx={{ width: '26%', height:'0%' }} spacing={100}>
+        {alertType === 'success' && (
+          <Alert variant="outlined" severity="success">
+            <AlertTitle>Success</AlertTitle>
+            This is a success Alert with an encouraging title.
+          </Alert>
+        )}
+        {alertType === 'email-error' && (
+          <Alert variant="outlined" severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Incorrect Email
+          </Alert>
+        )}
+        {alertType === 'password-error' && (
+          <Alert variant="outlined" severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Incorrect Password
+          </Alert>
+        )}
+      </Stack>
+
+      {/* Login form */}
       <form onSubmit={handleLogin} className="login-form">
         <center><h2>Login</h2></center>
         {error && <p className="error">{error}</p>}
@@ -96,15 +137,15 @@ const Login = () => {
           </div>
         </div>
 
-        <p className='loginInfo'><span style={{color:"#422AFB"}} className='forgetPass' onClick={() => navigate('/forget-password')}>Forgot Password?</span></p>
+        <p className="loginInfo">
+          <span style={{ color: '#422AFB' }} className="forgetPass" onClick={() => navigate('/forget-password')}>
+            Forgot Password?
+          </span>
+        </p>
         <button type="submit" className="login-btn">Login</button>
-        <p className='loginInfo'>Not Registered yet?<span className='loginn' onClick={() => navigate('/signup')}> Signup</span></p>
-        {/* <div className="google-login">
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleFailure}
-          />
-        </div> */}
+        <p className="loginInfo">Not Registered yet?
+          <span className="loginn" onClick={() => navigate('/signup')}> Signup</span>
+        </p>
       </form>
     </div>
   );
