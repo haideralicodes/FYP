@@ -1,9 +1,8 @@
 import { Avatar, Box, IconButton, Typography, useTheme } from "@mui/material";
-import { FaHome, FaDollarSign, FaRocket, FaUsersCog, FaEnvelope, FaClipboardList } from 'react-icons/fa'; // Add FaClipboardList for planner icon
 import { useContext, useState } from "react";
 import { tokens } from "../../../theme";
-import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar"; // Add SubMenu for Planner
-import { CalendarTodayOutlined, MenuOutlined, LogoutOutlined, AccountCircle } from "@mui/icons-material";
+import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar"; 
+import { MenuOutlined, LogoutOutlined } from "@mui/icons-material";
 import logo from "../../../../assets/logo.png";
 import Item from "./Item";
 import { ToggledContext } from "../../../DashboardApp";
@@ -18,8 +17,11 @@ import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import TurnedInNotOutlinedIcon from '@mui/icons-material/TurnedInNotOutlined';
-import HomeIcon from '../../../../assets/home.png'
-
+import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
+import CategoryIcon from '@mui/icons-material/Category';
+import Groups2Icon from '@mui/icons-material/Groups2';
+import InsightsIcon from '@mui/icons-material/Insights';
 
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -44,6 +46,7 @@ const SideBar = () => {
       rootStyles={{
         height: "100%",
         boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.1)',
+        width:"260px"
       }}
       collapsed={collapsed}
       onBackdropClick={() => setToggled(false)}
@@ -164,11 +167,10 @@ const SideBar = () => {
         </Menu>
 
         <Menu
-          active={isActive("/dashboard/team")}
           menuItemStyles={{
             button: {
-              color: isActive("/dashboard/team") ? "#ffffff" : "black",
-              background: isActive("/dashboard/team") ? "#000000" : "transparent",
+              color: "black",
+              background: "transparent",
               borderTopRightRadius:"30px",
               borderBottomRightRadius:"30px",
               fontSize:"17px",
@@ -186,43 +188,37 @@ const SideBar = () => {
             },
           }}
         >
-          <Item
-            title="Set Payment"
-            path="/dashboard/team"
-            colors={colors}
-            icon={<PaidOutlinedIcon />}
-          />
-        </Menu>
-
-        <Menu
-          active={isActive("/dashboard/LinkSocialAccounts")}
-          menuItemStyles={{
-            button: {
-              color: isActive("/dashboard/LinkSocialAccounts") ? "#ffffff" : "black",
-              background: isActive("/dashboard/LinkSocialAccounts") ? "#000000" : "transparent",
+          <SubMenu
+            label="Social Accounts"
+            icon={<Groups2Icon />}  
+            active={isActive("/dashboard/LinkSocialAccounts")}
+            style={{
+              fontSize: "17px",
               borderTopRightRadius:"30px",
               borderBottomRightRadius:"30px",
-              fontSize:"17px",
-              fontWeight:"450",
-              marginBottom:"10px",
-              paddingLeft:"30px",
-              width:"220px",
+              color: isActive("/dashboard/GeneratePosters") ? "#ffffff" : "black",
+              background: isActive("/dashboard/GeneratePosters") ? "#000000" : "transparent",
               transition: "all 0.3s ease-in-out",
               ":hover": {
                 color: "#ffffff",
                 background: "#000000",
-                transform: "scale(1)", 
-                transition: "all 0.3s ease-in-out", 
+                borderRadius: "30px",
               },
-            },
-          }}
-        >
-          <Item
-            title="Social Accounts"
-            path="/dashboard/LinkSocialAccounts"
-            colors={colors}
-            icon={<DashboardCustomizeOutlinedIcon />}
-          />
+            }}
+          >
+            <Item
+              title="Link Socials"
+              path="/dashboard/LinkSocialAccounts"
+              colors={colors}
+              icon={<DashboardCustomizeOutlinedIcon />}
+            />
+            <Item
+              title="Analytics"
+              path="/dashboard/SocialAnalytics"
+              colors={colors}
+              icon={<InsightsIcon />}
+            />
+          </SubMenu>
         </Menu>
         
         {/* Planner Section with SubMenu */}
@@ -280,6 +276,7 @@ const SideBar = () => {
           </SubMenu>
         </Menu>
 
+
         <Menu
           active={isActive("/dashboard/userProfile")}
           menuItemStyles={{
@@ -312,6 +309,61 @@ const SideBar = () => {
 
         </Menu>
 
+        {/* Website Management Suite Section with SubMenu */}
+        <Menu
+          menuItemStyles={{
+            button: {
+              color:"black",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
+              width:"220px",
+              transition: "all 0.3s ease-in-out",
+              ":hover": {
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
+              },
+            },
+          }}
+        >
+          <SubMenu
+            label="Web Suite"
+            icon={<StorefrontRoundedIcon />}  
+            active={isActive("/dashboard/GeneratePosters")}
+            style={{
+              fontSize: "17px",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              color: isActive("/dashboard/GeneratePosters") ? "#ffffff" : "black",
+              background: isActive("/dashboard/GeneratePosters") ? "#000000" : "transparent",
+              transition: "all 0.3s ease-in-out",
+              ":hover": {
+                color: "#ffffff",
+                background: "#000000",
+                borderRadius: "30px",
+              },
+            }}
+          >
+            <Item
+              title="Products"
+              path="/dashboard/Websuite/Products"
+              colors={colors}
+              icon={<Inventory2Icon />}  
+            />
+            <Item
+              title="Categories"
+              path="/dashboard/Websuite/Categories"
+              colors={colors}
+              icon={<CategoryIcon />}  
+            />
+          </SubMenu>
+        </Menu>
+
         <Menu
           active={isActive("/dashboard/userProfile")}
           menuItemStyles={{
@@ -342,6 +394,37 @@ const SideBar = () => {
             icon={<AccountBoxOutlinedIcon />}  // Icon for Profile
           />
 
+        </Menu>
+
+        <Menu
+          active={isActive("/dashboard/team")}
+          menuItemStyles={{
+            button: {
+              color: isActive("/dashboard/team") ? "#ffffff" : "black",
+              background: isActive("/dashboard/team") ? "#000000" : "transparent",
+              borderTopRightRadius:"30px",
+              borderBottomRightRadius:"30px",
+              fontSize:"17px",
+              fontWeight:"450",
+              marginBottom:"10px",
+              paddingLeft:"30px",
+              width:"220px",
+              transition: "all 0.3s ease-in-out",
+              ":hover": {
+                color: "#ffffff",
+                background: "#000000",
+                transform: "scale(1)", 
+                transition: "all 0.3s ease-in-out", 
+              },
+            },
+          }}
+        >
+          <Item
+            title="Set Payment"
+            path="/dashboard/team"
+            colors={colors}
+            icon={<PaidOutlinedIcon />}
+          />
         </Menu>
 
         <Menu

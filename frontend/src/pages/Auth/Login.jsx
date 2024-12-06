@@ -6,12 +6,17 @@ import { jwtDecode } from 'jwt-decode';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
+import cog from '../../assets/cog.png';
+import noodle from '../../assets/noodle.png';
+import cylinder from '../../assets/cylinder.png';
+import tube from '../../assets/tube.png';
+import pyramid from '../../assets/pyramid.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [alertType, setAlertType] = useState(null); // New state for alert type
+  const [alertType, setAlertType] = useState(null); 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -48,43 +53,8 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSuccess = async (response) => {
-    try {
-      const { credential } = response;
-      const decoded = jwtDecode(credential);
-      const { email, name } = decoded;
-
-      const res = await fetch('http://localhost:4000/api/google-login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name }),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        localStorage.setItem('token', data.token);
-        setAlertType('success'); // Show success alert for Google login
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 1500);
-      } else {
-        const data = await res.json();
-        setError(data.message || 'Google login failed');
-      }
-    } catch (err) {
-      console.error('Error:', err);
-      setError('Google login failed');
-    }
-  };
-
-  const handleGoogleFailure = (error) => {
-    console.error('Google login error:', error);
-    setError('Google login failed');
-  };
-
   return (
     <div className="login-container">
-      {/* Alert */}
       <Stack sx={{ width: '26%', height:'0%' }} spacing={100}>
         {alertType === 'success' && (
           <Alert variant="outlined" severity="success">
@@ -147,6 +117,11 @@ const Login = () => {
           <span className="loginn" onClick={() => navigate('/signup')}> Signup</span>
         </p>
       </form>
+      <img src={cog} alt="Cog" className="cog" />
+      <img src={cylinder} alt="Cylinder" className="cylinder" />
+      <img src={noodle} alt="Noodle" className="noodle" />
+      <img src={tube} alt="Tube" className="tube" />
+      <img src={pyramid} alt="Pyramid" className="pyramid" />
     </div>
   );
 };

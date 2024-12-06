@@ -116,33 +116,6 @@
     color: rgb(0, 38, 95);
   }
   
-  label {
-    display: block;
-    margin-bottom: 8px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    height: 50px;
-    border-radius: 6px;
-    font-size: 1rem;
-    border-color: black;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-  
-  input:focus, textarea:focus {
-    border-color: #0000ff8f;
-    outline: none;
-  }
-
-  input::placeholder, textarea::placeholder{
-    color: black; 
-    opacity: 1; 
-    font-size: 1rem;
-  }
-  
   .continueBtn {
     width: 100%;
     background-color: #422AFB;
@@ -159,3 +132,16 @@
     background-color: #322d82;
   }
   
+
+.animation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}

@@ -19,7 +19,7 @@ const PlusMenu = ({ onClose, onAddHeading }) => {
 
     const addHeading=(heading)=>{
         onAddHeading(heading);
-        console.log("onlick called \n")
+        console.log("Added heading: ", heading);
     }
 
     return (
@@ -55,24 +55,24 @@ const PlusMenu = ({ onClose, onAddHeading }) => {
                             <h5 onClick={() => addHeading('Add Heading 5')} style={{fontSize:"22px"}}>Add Heading 5</h5>
                             <h6 onClick={() => addHeading('Add Heading 6')} style={{fontSize:"17px"}}>Add Heading 6</h6>
                             <br />
-                            <p>I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>
-                            <p>I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>
-                            <p>I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>
+                            <p onClick={() => addHeading("I'm a paragraph. Click here to add your own text and edit me. It's easy.")} >I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>
+                            <p onClick={() => addHeading("I'm a paragraph. Click here to add your own text and edit me. It's easy.")} >I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>
+                            <p onClick={() => addHeading("I'm a paragraph. Click here to add your own text and edit me. It's easy.")} >I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>
                         </div>
                         <div ref={titlesRef} className='titles' style={{marginTop:"40px" }}>
                             <p style={{ fontSize: "19px"}}>TiTles</p>
                             <hr />
-                            <h1 style={{fontFamily:"Times New Roman"}}>ROMAN TITLE</h1>
-                            <h1 style={{fontFamily:"Impact"}}>Georgia TITLE</h1>
-                            <h1 style={{fontFamily:"Roboto", fontSize:"20px"}}>Small Title</h1>
-                            <h1 style={{fontFamily:"Anton", fontSize:"48px"}}>HUGE Title</h1>
-                            <h1 style={{fontFamily:"Oswald", fontWeight:"700"}}>Bold Title</h1>
-                            <h1 style={{fontFamily:"Segoe Script", fontWeight:"700"}}>Cursive Title</h1>
-                            <h1 style={{fontFamily:"Playfair Display"}}>Elegent Title</h1>
-                            <h1 style={{fontFamily:"Arial"}}>Arial Title</h1>
-                            <h1 style={{fontFamily:"Bebas Neue"}}>TALL TITLE</h1>
-                            <h1 style={{fontFamily:"Lato", fontWeight:"100"}}>Thin Title</h1>
-                            <h1 style={{fontFamily:"Cursive"}}>HandWritten Title</h1>
+                            <h1 onClick={() => addHeading("ROMAN TITLE.")} style={{fontFamily:"Times New Roman"}}>ROMAN TITLE</h1>
+                            <h1 onClick={() => addHeading("Georgia TITLE.")} style={{fontFamily:"Impact"}}>Georgia TITLE</h1>
+                            <h1 onClick={() => addHeading("Small TITLE.")} style={{fontFamily:"Roboto", fontSize:"20px"}}>Small Title</h1>
+                            <h1 onClick={() => addHeading("HUGE TITLE.")} style={{fontFamily:"Anton", fontSize:"48px"}}>HUGE Title</h1>
+                            <h1 onClick={() => addHeading("Bold TITLE.")} style={{fontFamily:"Oswald", fontWeight:"700"}}>Bold Title</h1>
+                            <h1 onClick={() => addHeading("Cursive TITLE.")} style={{fontFamily:"Segoe Script", fontWeight:"700"}}>Cursive Title</h1>
+                            <h1 onClick={() => addHeading("Elegent TITLE.")} style={{fontFamily:"Playfair Display"}}>Elegent Title</h1>
+                            <h1 onClick={() => addHeading("Arial TITLE.")} style={{fontFamily:"Arial"}}>Arial Title</h1>
+                            <h1 onClick={() => addHeading("TALL TITLE.")} style={{fontFamily:"Bebas Neue"}}>TALL TITLE</h1>
+                            <h1 onClick={() => addHeading("Thin TITLE.")} style={{fontFamily:"Lato", fontWeight:"100"}}>Thin Title</h1>
+                            <h1 onClick={() => addHeading("HandWritten TITLE.")} style={{fontFamily:"Cursive"}}>HandWritten Title</h1>
 
                         </div>
                         <div ref={paragraphsRef} className='paraElement' style={{marginTop:"100px" }}>

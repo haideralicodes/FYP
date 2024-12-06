@@ -7,13 +7,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import { tokens } from "../../theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../../components";
 import { formatDate } from "@fullcalendar/core";
 
@@ -23,36 +24,79 @@ const Calendar = () => {
   const isMdDevices = useMediaQuery("(max-width:920px)");
   const isSmDevices = useMediaQuery("(max-width:600px)");
   const isXsDevices = useMediaQuery("(max-width:380px)");
+
+  const [initialEvents, setInitialEvents] = useState([]);
   const [currentEvents, setCurrentEvents] = useState([]);
 
-  const handleDateClick = (selected) => {
-    const title = prompt("Please enter a new title for your event");
-    const calendarApi = selected.view.calendar;
-    calendarApi.unselect();
+  useEffect(() => {
+    const fetchScheduledPosts = async () => {
+        try {
+            console.log("Fetching.........")
+            const response = await fetch('http://localhost:4000/api/get-scheduled-posts');
+            if (!response.ok) {
+                throw new Error('Failed to fetch scheduled posts');
+            }
+            
+            const storedPosts = await response.json();
+            console.log(storedPosts)
 
-    if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay,
-      });
-    }
+            const newEvents = storedPosts.map(post => {
+                const { imageUrl, text, scheduledTime } = post;
+
+                console.log("imageUrl: ", imageUrl, ", text: ", text, ", scheduledTime: ", scheduledTime)
+
+                return {
+                    id: `${scheduledTime}-${text}`,
+                    title: text,
+                    start: scheduledTime,
+                    end: scheduledTime,
+                    allDay: false,
+                    extendedProps: {
+                        image: imageUrl,
+                        hashtags: post.hashtags,
+                    },
+                };
+            });
+
+            setInitialEvents(newEvents);
+            setCurrentEvents(newEvents);
+
+        } catch (error) {
+            console.error('Error fetching scheduled posts:', error);
+        }
+    };
+
+    fetchScheduledPosts();
+  }, []);
+
+  const renderEventContent = (eventInfo) => {
+    console.log("Rendering Image:", eventInfo.event.extendedProps.image);
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          gap:"10px"
+        }}
+      >
+        {eventInfo.event.extendedProps.image && (
+          <img
+            src={eventInfo.event.extendedProps.image}
+            style={{ width: '100px', height: '120px',  maxHeight: '100px', borderRadius: '30px' }}
+            alt="Event"
+          />
+        )}
+      </Box>
+    );
   };
 
-  const handleEventClick = (selected) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete the event '${selected.event.title}'`
-      )
-    ) {
-      selected.event.remove();
-    }
-  };
   return (
     <Box m="20px">
-      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
+      <Header title="Calendar" />
       <Box display="flex" justifyContent="space-between" gap={2}>
         {/* CALENDAR SIDEBAR */}
         <Box
@@ -82,9 +126,20 @@ const Calendar = () => {
                         month: "short",
                         day: "numeric",
                       })}
+                      <br />
+                      <Typography variant="caption" color="text.secondary">
+                        {event.extendedProps.hashtags}
+                      </Typography>
                     </Typography>
                   }
                 />
+                {event.extendedProps.image && (
+                  <img
+                    src={event.extendedProps.image}
+                    alt="Event"
+                    style={{ width: '50px', height: '50px', borderRadius: '5px' }}
+                  />
+                )}
               </ListItem>
             ))}
           </List>
@@ -101,12 +156,7 @@ const Calendar = () => {
         >
           <FullCalendar
             height="75vh"
-            plugins={[
-              dayGridPlugin,
-              timeGridPlugin,
-              interactionPlugin,
-              listPlugin,
-            ]}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
             headerToolbar={{
               left: `${isSmDevices ? "prev,next" : "prev,next today"}`,
               center: "title",
@@ -119,25 +169,16 @@ const Calendar = () => {
               }`,
             }}
             initialView="dayGridMonth"
-            editable={true}
+            editable={false}
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
-            select={handleDateClick}
-            eventClick={handleEventClick}
             eventsSet={(events) => setCurrentEvents(events)}
-            initialEvents={[
-              {
-                id: "12315",
-                title: "All-day event",
-                date: "2024-02-27",
-              },
-              {
-                id: "5123",
-                title: "Timed event",
-                date: "2024-02-29",
-              },
-            ]}
+            eventContent={renderEventContent}
+            events={initialEvents}
+            eventDidMount={(info) => {
+              info.el.setAttribute('title', '');
+            }}
           />
         </Box>
       </Box>

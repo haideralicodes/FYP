@@ -1,0 +1,160 @@
+.top-picks {
+  padding-top: 50px;
+  text-align: center;
+  background-color: #c9e6ed;
+  padding-bottom: 100px;
+}
+
+.top-picks h2 {
+  font-size: 5vw;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+  height: 100%;
+}
+
+editable {
+  position: relative;
+}
+
+.editable:focus {
+  outline: none;
+  border: 2px solid blue;
+}
+
+.editable:focus::before,
+.editable:focus::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #3b82f6; 
+  display: block;
+}
+
+.editable:focus::before {
+  top: -7px;
+  left: -7px;
+}
+
+.editable:focus::after {
+  bottom: -7px;
+  right: -7px;
+}
+
+.editable:hover{
+  cursor: pointer;
+}
+
+/* .carousel {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+} */
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  gap: 10px;
+  width: 100%;
+}
+
+.carousel h3{
+  padding-top: 20px;
+  padding-bottom: 10px;
+} 
+
+.product-item {
+  text-align: center;
+}
+
+/* .product-item img {
+  width: 264px;
+  height: 352px;
+  margin: 0 10px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transition: transform 0.3s ease;
+  border-radius: 132px;
+} */
+
+.product-item img {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 132px;
+}
+
+.product-item h3 {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.product-item p {
+  font-size: 16px;
+  color: #555;
+}
+
+.carousel img:hover {
+  cursor: pointer;
+  opacity: 90%;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.carousel-icon {
+  width: 15px;
+  color: black;
+  cursor: pointer;
+  z-index: 10;
+  position: absolute;
+  top: 35%;
+  transform: translateY(-50%);
+  transition: color 0.3s ease;
+}
+
+.carousel-icon:hover {
+  color: #333;
+}
+
+.left {
+  left: -1%;
+}
+
+.right {
+  right: -1%;
+}
+
+/* @media (max-width: 1536px) {
+  .top-picks h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .carousel-container {
+    padding: 0 10px;
+  }
+
+  .carousel {
+    gap: 100px;
+  }
+
+  .product-item img {
+    width: 206px;
+    height: 275px;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+} */

@@ -21,6 +21,7 @@ import img18 from '../../assets/img11.avif'
 import img19 from '../../assets/img12.avif'
 import img20 from '../../assets/img5.avif'
 import { useNavigate } from 'react-router-dom';
+import { Button, TextField, Typography } from '@mui/material';
 
 const images = [
     { imgSrc: img1},
@@ -58,8 +59,12 @@ function ProvideBrandStory() {
   const navigate = useNavigate();
 
   const handleContinue = () => {
-    navigate('/provide-business-location');
+
+    localStorage.setItem('businessStory', brandStroy)
+    
     console.log(brandStroy + "\n")
+    navigate('/provide-business-location');
+
   };
 
   return (
@@ -71,17 +76,36 @@ function ProvideBrandStory() {
         <div className="column">{column4.map((img, idx) => <img key={idx} src={img.imgSrc} alt="" />)}</div>
         <div className="column">{column5.map((img, idx) => <img key={idx} src={img.imgSrc} alt="" />)}</div>
       </div>
+
       <div className="card">
-        <h2>Provide Your Brand Story</h2>
-        <textarea
-          id="descriptionTextarea"
-          rows="5"
-          placeholder="Describe your brand story"
+        <Typography variant="h1" color='#000000' fontWeight={550} fontSize={30} gutterBottom textAlign="center" marginTop="20px" marginBottom="20px">
+        Provide Your Business Story
+        </Typography>
+        <TextField 
+          label="Story"
+          variant='outlined'
+          required 
           value={brandStroy}
+          multiline
+          maxRows={5}
           onChange={(e) => setBrandStory(e.target.value)}
         />
-        <button className='continueBtn' onClick={handleContinue}>Continue</button>
+        <Button 
+        onClick={handleContinue}
+        sx={{ position:"fixed", top:280, height:"60px", backgroundColor: "#6943C8", color:"white", border:"none", width:"420px", fontSize:"17px", fontWeight:"550", borderRadius:"10px", transition:"0.5s ease-in-out", 
+          ":hover":{backgroundColor:"#3E037E", color:"white"}
+          }}
+        >
+          Continue
+          <lord-icon
+            src="https://cdn.lordicon.com/vduvxizq.json"
+            trigger="loop"
+            colors="primary:#ffffff"
+            style={{heigh:"50px", width:"50px"}}>
+          </lord-icon>
+        </Button>
       </div>
+
     </div>
   )
 }

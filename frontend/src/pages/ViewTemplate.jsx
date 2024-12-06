@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from '../Templates/FashionStoreOne/Navbar';
-import HeroSection from '../Templates/FashionStoreOne/HeroSection';
-import TopPicks from '../Templates/FashionStoreOne/TopPicks';
-import SpecialOffers from '../Templates/FashionStoreOne/SpecialOffers';
-import OurStory from '../Templates/FashionStoreOne/OurStory';
-import Footer from '../Templates/FashionStoreOne/Footer';
+import Navbar from '../Templates/BuetyStore/Navbar';
+import HeroSection from '../Templates/BuetyStore/HeroSection';
+import TopPicks from '../Templates/BuetyStore/TopPicks';
+import SpecialOffers from '../Templates/BuetyStore/SpecialOffers';
+import OurStory from '../Templates/BuetyStore/OurStory';
+import Footer from '../Templates/BuetyStore/Footer';
 import PreviewScreen from '../pages/CustomizeWebsite/PreviewScreen'
 
 function ViewTemplate() {
@@ -18,7 +18,6 @@ function ViewTemplate() {
         <HeroSection />
         <TopPicks />
         <SpecialOffers />
-        <OurStory />
         <Footer />
       </div>
     </div>

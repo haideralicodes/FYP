@@ -1,0 +1,59 @@
+.special-offers {
+  background-color: white;
+  text-align: center;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.special-offers h2 {
+  font-size: 72px;
+  margin-top: 90px;
+}
+
+.special-offers h3 {
+  text-align: center;
+  font-size: 24px;
+}
+
+.special-offers p {
+  font-size: 16px;
+  max-width: 800px;
+  margin-bottom: 50px;
+}
+  
+editable {
+  position: relative;
+}
+
+.editable:focus {
+  outline: none;
+  border: 2px solid blue;
+}
+
+.editable:focus::before,
+.editable:focus::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #3b82f6; 
+  display: block;
+}
+
+.editable:focus::before {
+  top: -7px;
+  left: -7px;
+}
+
+.editable:focus::after {
+  bottom: -7px;
+  right: -7px;
+}
+
+.editable:hover{
+  cursor: pointer;
+}

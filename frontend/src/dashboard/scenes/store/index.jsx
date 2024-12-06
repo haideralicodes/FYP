@@ -20,6 +20,10 @@ const Store = () => {
     navigate('/provide-business-details');
   };
 
+  const handleSearchDomain = () => {
+    navigate('/dashboard/SearchDomain');
+  };
+
   const [animationDelay, setAnimationDelay] = useState(0);
 
   useEffect(() => {
@@ -53,10 +57,10 @@ const Store = () => {
               onClick: handleDesignSite
             },
             {
-              title: "Set Up Payment Method",
-              buttonText: "Setup Payment",
+              title: "Find a Domain Name",
+              buttonText: "Find Domain",
               icon: <AddCardOutlinedIcon />,
-              onClick: handleDesignSite
+              onClick: handleSearchDomain
             },
             {
               title: "Preview your Website",

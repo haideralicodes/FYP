@@ -10,7 +10,11 @@ app.use(express.json());
 app.use(cors({ origin: '*' }));
 
 
-const mongoUrl = 'mongodb+srv://haideralicodes:bcAZeKCMqmfOIodf@cluster0.l8h9q.mongodb.net/'
+app.get('/', (req, res) => {
+  res.send('Welcome to the API!');
+});
+
+// const mongoUrl = 'mongodb+srv://haideralicodes:bcAZeKCMqmfOIodf@cluster0.l8h9q.mongodb.net/'
 
 mongoose.connect('mongodb://127.0.0.1:27017/userDB', {
 }).then(() => {
@@ -18,6 +22,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/userDB', {
 }).catch((err) => {
   console.error('DB connection error: ', err);
 });
+
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', userRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

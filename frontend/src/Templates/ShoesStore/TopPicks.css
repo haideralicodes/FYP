@@ -1,0 +1,132 @@
+.top-picks {
+  padding-top: 50px;
+  text-align: center;
+  background-color: #49bec8;
+  padding-bottom: 100px;
+}
+
+.top-picks h2 {
+  font-size: 5vw;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+  height: 100%;
+}
+
+.editable {
+  position: relative;
+}
+
+.editable:focus {
+  outline: none;
+  border: 2px solid blue;
+}
+
+.editable:focus::before,
+.editable:focus::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #3b82f6; 
+  display: block;
+}
+
+.editable:focus::before {
+  top: -7px;
+  left: -7px;
+}
+
+.editable:focus::after {
+  bottom: -7px;
+  right: -7px;
+}
+
+.editable:hover{
+  cursor: pointer;
+}
+
+/* .carousel {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+} */
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  gap: 10px;
+  width: 100%;
+}
+
+.carousel h3{
+  padding-top: 10px;
+  font-size: 50px;
+  padding-bottom: 10px;
+} 
+
+.product-item {
+  text-align: center;
+}
+
+/* .product-item img {
+  width: 264px;
+  height: 352px;
+  margin: 0 10px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transition: transform 0.3s ease;
+  border-radius: 132px;
+} */
+
+.product-item img {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.product-item h3 {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.product-item p {
+  font-size: 18px;
+  color: #555;
+}
+
+
+
+/* @media (max-width: 1536px) {
+  .top-picks h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .carousel-container {
+    padding: 0 10px;
+  }
+
+  .carousel {
+    gap: 100px;
+  }
+
+  .product-item img {
+    width: 206px;
+    height: 275px;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+} */

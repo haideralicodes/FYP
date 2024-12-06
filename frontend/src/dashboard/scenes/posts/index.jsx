@@ -34,7 +34,7 @@ function GenerateImagePage() {
 
       const rawText = geminiResponse.data.candidates[0].content.parts[0].text;
       // const firstSentence = rawText.split('.')[0].trim(); 
-      const firstSentence = rawText.split('*').slice(0, 2).join('').trim(); // Extract first sentence
+      const firstSentence = rawText.split('*').slice(0, 2).join('').trim().substring(3); // Extract first sentence
       const extractedHashtags = rawText.match(/#\w+/g)?.join(' ') || ''; // Extract hashtags
 
       
@@ -252,11 +252,11 @@ function GenerateImagePage() {
       )}
 
       {/* Prompt Box */}
-      <Box sx={{ boxShadow: '0px 10px 30px 10px rgba(0,0,0,0.1)', display: "flex", alignItems: "center", gap: "30px", p: 0.5, backgroundColor: "#979dac", height: "70px", width: "1050px", borderRadius: "50px"}}>
+      <Box sx={{ boxShadow: '0px 10px 30px 10px rgba(0,0,0,0.1)', display: "flex", alignItems: "center",  justifyContent:"center",   gap: "30px", p: 0.5, backgroundColor: "#979dac", height: "70px", width: "1050px", borderRadius: "50px"}}>
         <input
           type="text"
           placeholder="eg. 20% off on shoes"
-          style={{ marginLeft: "8px", fontSize: "20px", color: "white", marginTop: "20px", borderRadius: "30px", height: "50px", width: "800px", border: "3px solid white", paddingLeft: "20px" }}
+          style={{ marginBottom:"18px", marginLeft: "8px", fontSize: "20px", color: "white", marginTop: "20px", borderRadius: "30px", height: "50px", width: "800px", border: "3px solid white", paddingLeft: "20px" }}
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
         />
@@ -293,6 +293,7 @@ function GenerateImagePage() {
               <Skeleton variant="rectangular" animation="wave" width={280} height={280} sx={{ borderRadius: "20px", bgcolor: 'rgba(255, 255, 255, 0.3)' }} />
               <Skeleton width="90%" animation="wave" sx={{ bgcolor: 'rgba(255, 255, 255, 0.2)' }} />
               <Skeleton width="80%" animation="wave" sx={{ bgcolor: 'rgba(255, 255, 255, 0.2)' }} />
+              <Skeleton width="60%" animation="wave" sx={{ bgcolor: 'rgba(255, 255, 255, 0.2)' }} />
             </Box>
           ))}
         </Box>

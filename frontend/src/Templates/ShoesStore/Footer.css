@@ -1,0 +1,79 @@
+.footerr {
+  background-color: #49bec8;
+  color: black;
+  text-align: center;
+  height: 300px;
+}
+
+.footerr h2{
+  text-align: center;
+  font-size: 35px;
+}
+
+.footerr p {
+  font-size: 14px;
+  text-align: center;
+}
+
+.footerr{
+  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footerr a {
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.links{
+  display: flex;
+  gap: 40px;
+}
+  
+.brandInfo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.brandInfo p{
+  font-size: 1rem;
+}
+
+editable {
+  position: relative;
+}
+
+.editable:focus {
+  outline: none;
+  border: 2px solid blue;
+}
+
+.editable:focus::before,
+.editable:focus::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #3b82f6; 
+  display: block;
+}
+
+.editable:focus::before {
+  top: -7px;
+  left: -7px;
+}
+
+.editable:focus::after {
+  bottom: -7px;
+  right: -7px;
+}
+
+.editable:hover{
+  cursor: pointer;
+}

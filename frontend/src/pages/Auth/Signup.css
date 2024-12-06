@@ -12,13 +12,13 @@
 }
 
 .signup-form {
-  height: auto;
+  height: 660px;
   position: relative;
   background-color: #fff;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
-  width: 400px;
+  width: 420px;
   z-index: 2;
   margin: 50px;
 }
@@ -40,7 +40,8 @@
   padding: 10px;
   border: 2px solid #ddd;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
@@ -67,7 +68,7 @@
 
 .input-container input:focus + label,
 .input-container input:not(:placeholder-shown) + label {
-  top: 10px;
+  top: 1px;
   left: 10px;
   font-size: 0.85rem;
   color: #6366f1;

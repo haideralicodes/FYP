@@ -20,7 +20,16 @@ import UserProfile from '../pages/UpdateUserProfile/UpdateProfile'
 import GeneratedPostSchedular from "./scenes/posts/GeneratedPostSchedular";
 import Posters from "./scenes/posts/Posters";
 import LinkSocialAccounts from "./scenes/socialAccount/LinkSocialAccounts";
+import SocialAnalytics from "./scenes/socialAccount/SocialAnalytics";
 import SavedPosts from "./scenes/posts/SavedPosts";
+import FindDomain from "./scenes/searchDomain/FindDomain";
+import Products from "./scenes/webSuite/Products";
+import Orders from "./scenes/webSuite/Orders";
+import Categories from "./scenes/webSuite/Categories";
+import Customers from "./scenes/webSuite/Customers";
+
+import NewCategoryPage from "./scenes/webSuite/NewCategoryForm";
+import CategoryDetail from "./scenes/webSuite/CategoryDetail";
 
 
 const AppRouter = () => {
@@ -41,7 +50,15 @@ const AppRouter = () => {
         <Route path="GeneratedPostScheduler" element={<GeneratedPostSchedular />} />
         <Route path="GeneratePosters" element={<Posters />} />
         <Route path="LinkSocialAccounts" element={<LinkSocialAccounts />} />
+        <Route path="SocialAnalytics" element={<SocialAnalytics />} />
         <Route path="ViewSavedPosts" element={<SavedPosts />} />
+        <Route path="SearchDomain" element={<FindDomain />} />
+        <Route path="Websuite/Products" element={<Products />} />
+        <Route path="Websuite/Orders" element={<Orders />} />
+        <Route path="Websuite/Categories" element={<Categories />} />
+        <Route path="Websuite/Customers" element={<Customers />} />
+        <Route path="Websuite/NewCategory" element={<NewCategoryPage />} />
+        <Route path="Websuite/CategoryDetail" element={<CategoryDetail />} />
 
       </Route>
     </Routes>

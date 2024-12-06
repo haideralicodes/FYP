@@ -54,7 +54,6 @@
 
 .input-container input:focus + label,
 .input-container input:not(:placeholder-shown) + label {
-  top: 10px;
   left: 10px;
   font-size: 0.85rem;
   color: #6366f1;

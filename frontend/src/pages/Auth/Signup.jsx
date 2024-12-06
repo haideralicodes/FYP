@@ -7,6 +7,8 @@ import cylinder from '../../assets/cylinder.png';
 import tube from '../../assets/tube.png';
 import pyramid from '../../assets/pyramid.png';
 
+// Ali@1234
+
 const Signup = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -23,19 +25,26 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    const passwordRegex = /^(?![@$#%^!*&()\-=_+])(?=.*[A-Z])(?=.*[@$!%*?&#]).{8,}$/;
   
     if (!email.includes('@gmail.com')) {
-      setError('Email must be a valid @gmail.com address');
+      alert('Email must be a valid @gmail.com address');
       return;
     }
   
     if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
-      setError('All fields are required');
+      alert('All fields are required');
       return;
     }
   
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      alert('Passwords do not match');
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      alert('Password must be at least 8 characters long, contain at least one capital letter, one special character, and not start with a special character.');
       return;
     }
   
@@ -72,7 +81,6 @@ const Signup = () => {
     <div className="signup-container">
       <form onSubmit={handleSignup} className="signup-form">
         <center><h2>Signup</h2></center>
-        {error && <p className="error">{error}</p>}
         <div className="form-group">
           <div className="input-container">
             <input

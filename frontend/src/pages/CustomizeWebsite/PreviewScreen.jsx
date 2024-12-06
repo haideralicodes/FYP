@@ -23,8 +23,37 @@ function PreviewScreen({ hidden }) {
   };
 
   const handleCustomizeWebsite = () => {
-    navigate('/customize-website-screen'); 
+
+    const businessStory = localStorage.getItem('businessStory');
+    if (businessStory) {
+      const lowerCaseStory = businessStory.toLowerCase();
+      if (lowerCaseStory.includes('beauty')) {
+        navigate('/customize-website-screen-buety'); 
+      } 
+      else if (lowerCaseStory.includes('fashion')) {
+        navigate('/customize-website-screen'); 
+      } 
+      else if (lowerCaseStory.includes('makeup')) {
+        navigate('/customize-website-screen-buety'); 
+      }
+      else if (lowerCaseStory.includes('furniture')) {
+        navigate('/customize-website-screen-furniture'); 
+      }
+      else if (lowerCaseStory.includes('shoes')) {
+        navigate('/customize-website-screen-shoes'); 
+      }
+      else if (lowerCaseStory.includes('sneakers')) {
+        navigate('/customize-website-screen-shoes'); 
+      }
+      else if (lowerCaseStory.includes('joggers')) {
+        navigate('/customize-website-screen-shoes'); 
+      }
+      else if (lowerCaseStory.includes('gadgets')) {
+        navigate('/customize-website-screen-gadgets'); 
+      }
+    }
   };
+
 
   const handleClick = () => {
     navigate('/dashboard'); 

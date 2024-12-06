@@ -55,7 +55,7 @@ export default function DashboardDefault() {
       <Box sx={{ m:7 }}>
         <Grid container spacing={2}>
           {/* row 1 */}
-          <Grid item xs={12} sx={{ mb: -2.25, mb: 1, ml:1}}>
+          <Grid item xs={12} sx={{ mb: -2.25, ml:1}}>
             <Typography variant="h1" sx={{fontSize:"35px",fontWeight:"550"}}>Dashboard</Typography>
           </Grid>
 

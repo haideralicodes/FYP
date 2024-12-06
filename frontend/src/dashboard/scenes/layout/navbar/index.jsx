@@ -54,13 +54,13 @@ const Navbar = () => {
       </Box>
 
       <Box>
-        <IconButton onClick={colorMode.toggleColorMode}>
+        {/* <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <LightModeOutlined />
           ) : (
             <DarkModeOutlined />
           )}
-        </IconButton>
+        </IconButton> */}
         <IconButton>
           <NotificationsOutlined />
         </IconButton>

@@ -32,13 +32,20 @@ function SavedPosts() {
         return firstSentence;
     };
 
-    if (loading) {
-        return (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <CircularProgress size={30} />
-            </Box>
-        ); 
-    }
+    const deletePost = async (postId) => {
+        const yourToken = localStorage.getItem('token');
+        try {
+            await axios.delete(`http://localhost:4000/api/posts/${postId}`, {
+                headers: {
+                    Authorization: `Bearer ${yourToken}`,
+                },
+            });
+            // Remove the post from the UI after successful deletion
+            setSavedPosts((prevPosts) => prevPosts.filter(post => post._id !== postId));
+        } catch (error) {
+            console.error('Error deleting post:', error);
+        }
+    };
 
     return (
         <div>
@@ -58,7 +65,7 @@ function SavedPosts() {
                         <Grid2 container spacing={6}>
                             {savedPosts.map((post) => (
                                 <Grid2 item xs={12} sm={4} key={post._id}>
-                                    <Box sx={{ p: 2.1, display: "flex", flexDirection: "column", alignItems: 'center', gap: "20px", backgroundColor: "#06245c", borderRadius: "25px", mt: 1, width: "100%", height: "550px" }}>
+                                    <Box sx={{ p: 2.1, display: "flex", flexDirection: "column", alignItems: 'center', gap: "20px", backgroundColor: "#06245c", borderRadius: "25px", mt: 1, width: "100%", height: "570px" }}>
                                         <img src={post.imageUrl} height="350px" width="315px" style={{ borderRadius: "20px" }} />
                                         <Box sx={{ width: "290px" }}>
                                             <Typography variant="h6" sx={{ textAlign: "justify", fontSize: "13px", color: "white", fontWeight: "550"}}> {shortenText(post.text)} </Typography>
@@ -77,15 +84,19 @@ function SavedPosts() {
                                                         style={{ width: "20px", height: "20px" }}
                                                     ></lord-icon>
                                                 </Box>
-                                                <Box sx={{ mt: -1, display: "flex", alignItems: "center", border: "2px solid white", borderRadius: "30px", height: "40px", width: "100px" }}>
-                                                    <Typography variant="h6" sx={{ color: "white", pl: 2.5, pr: 2.5, fontWeight: "bold", mr: -2 }} >Delete</Typography>
-                                                    <lord-icon
-                                                        src="https://cdn.lordicon.com/wpyrrmcq.json"
-                                                        trigger="click"
-                                                        state="morph-trash-full-to-empty"
-                                                        colors="primary:#ffffff"
-                                                        style={{ width: "20px", height: "20px", cursor: "pointer" }}
-                                                    ></lord-icon>
+                                                <Box 
+                                                    onClick={() => deletePost(post._id)}
+                                                    sx={{ mt: -1, display: "flex", alignItems: "center", border: "2px solid #ffff3f", borderRadius: "30px", height: "40px", width: "100px", ":hover":{
+                                                        cursor:"pointer"
+                                                    } }}>
+                                                        <Typography variant="h6" sx={{ color: "#ffff3f", pl: 2.5, pr: 2.5, fontWeight: "bold", mr: -2, }} >Delete</Typography>
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/wpyrrmcq.json"
+                                                            trigger="click"
+                                                            state="morph-trash-full-to-empty"
+                                                            colors="primary:#ffff3f"
+                                                            style={{ width: "20px", height: "20px", cursor: "pointer" }}
+                                                        ></lord-icon>
                                                 </Box>
                                             </Box>
 

@@ -22,6 +22,8 @@ import img18 from '../../assets/img11.avif';
 import img19 from '../../assets/img12.avif';
 import img20 from '../../assets/img5.avif';
 import { useNavigate } from 'react-router-dom';
+import { Button, TextField, Typography } from '@mui/material';
+import axios from 'axios'; 
 
 const images = [
   { imgSrc: img1 },
@@ -55,11 +57,56 @@ function ProvideBusinessLocation() {
   const column4 = images.slice(15, 20);
   const column5 = images.slice(20, 25);
 
+  const [showAnimation, setShowAnimation] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleContinue = () => {
-    navigate('/template-gen-screen');
+  const handleContinue = async () => {
+    setShowAnimation(true);
+
+    localStorage.setItem('businessLocation', address);
     console.log(address+"\n")
+
+    const businessName = localStorage.getItem('businessName');
+    const businessStory = localStorage.getItem('businessStory');
+    const businessLocation = localStorage.getItem('businessLocation');
+
+    console.log("Business Data:", { businessName, businessStory, businessLocation });
+
+    setTimeout(() => {
+      if (businessStory) {
+        const lowerCaseStory = businessStory.toLowerCase();
+
+        if (lowerCaseStory.includes('beauty')) {
+            navigate('/template-gen-screen/buety');
+        } 
+
+        else if (lowerCaseStory.includes('makeup')) {
+          navigate('/template-gen-screen/buety');
+        }
+
+        else if (lowerCaseStory.includes('gadgets')) {
+          navigate('/template-gen-screen/gadget');
+        }
+        
+        else if (lowerCaseStory.includes('furniture')) {
+            navigate('/template-gen-screen/furniture');
+        }
+
+        else if (lowerCaseStory.includes('clothing')) {
+          navigate('/template-gen-screen/fashion');
+        }
+
+        else if (lowerCaseStory.includes('fashion')) {
+          navigate('/template-gen-screen/fashion');
+        }
+
+        else{
+          navigate('/provide-brand-story');
+        }
+      }
+    }, 3000);
+
   };
 
   return (
@@ -71,20 +118,58 @@ function ProvideBusinessLocation() {
         <div className="column">{column4.map((img, idx) => <img key={idx} src={img.imgSrc} alt="" />)}</div>
         <div className="column">{column5.map((img, idx) => <img key={idx} src={img.imgSrc} alt="" />)}</div>
       </div>
+
       <div className="card">
-        <h2>Provide Your Brand Location</h2>
-        <input
-          id="inputField"
-          type="text"
-          required
-          placeholder="Business Location"
+        <Typography variant="h1" color='#000000' fontWeight={550} fontSize={30} gutterBottom textAlign="center" marginTop="20px" marginBottom="20px">
+        Provide Business Location
+        </Typography>
+        <TextField 
+          label="Location"
+          variant='outlined'
+          required 
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          sx={{
+            '& input:valid + fieldset': {
+              borderColor: '#000000',
+              borderWidth: 1,
+            },
+            '&.Mui-focused': {
+              borderColor: 'black',
+              borderWidth: 1,
+            },
+          }}
         />
-        <button className="continueBtn" onClick={handleContinue}>
-          Generate Website
-        </button>
+        <Button 
+        onClick={handleContinue}
+        sx={{position:"fixed", top:280, height:"60px", backgroundColor: "#6943C8", color:"white", border:"none", width:"420px", fontSize:"17px", fontWeight:"550", borderRadius:"10px", transition:"0.5s ease-in-out", 
+          ":hover":{backgroundColor:"#3E037E", color:"white"}
+          }}
+        >
+          Continue
+          <lord-icon
+            src="https://cdn.lordicon.com/vduvxizq.json"
+            trigger="loop"
+            colors="primary:#ffffff"
+            style={{heigh:"50px", width:"50px"}}>
+          </lord-icon>
+        </Button>
+
       </div>
+
+      {/* Lord icon animation */}
+      {showAnimation && (
+          <div className="animation-overlay">
+            <lord-icon
+              src="https://cdn.lordicon.com/lqxfrxad.json"
+              trigger="loop"
+              state="loop-expand-alt-2"
+              colors="primary:#6943C8"
+              style={{ width: '300px', height: '70px' }}
+            ></lord-icon>
+          </div>
+        )}
+
     </div>
   );
 }
