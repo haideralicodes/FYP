@@ -3,12 +3,12 @@
   height: 100%;
   display: flex;
   z-index: 1000;
-  margin-left: 60px;
+  margin-left: 50px;
 }
 
 .plus-menu {
   background-color: #f7f8f8;
-  width: 47%;
+  width: 46%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@
 }
 
 .menu-header h2 {
-  margin: 0;
+  margin-left: 30px;
   font-size: 18px;
 }
 
@@ -45,19 +45,20 @@
 .menu-section {
   border-right: 1px solid black;
   width: 150px;
+
 }
 
 .menu-section ul {
   list-style: none;
-  padding-left: 0;
-  margin-left: 20px;
-  margin-top: 20px;
+  margin-left: 30px;
+  margin-top: 150px;
 }
 
 .menu-section ul li {
   margin-bottom: 10px;
   width: 150px;
   text-align: justify;
+  margin-top: 60px;
 }
 
 .menu-section ul li a {
@@ -113,7 +114,7 @@
 }
 
 .themedText, .titles, .paraElement, .collapsibleText{
-    height: 100vh;
+    height: 50vh;
     display: block;
 }
 

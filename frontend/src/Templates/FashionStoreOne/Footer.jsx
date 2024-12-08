@@ -48,7 +48,7 @@ function Footer({ onAddSectionClick }) {
           }}
           style={{
             position: 'absolute',
-            top: '-18px', // Adjust the position accordingly
+            top: '-25px', // Adjust the position accordingly
             left: '50%',
             transform: 'translateX(-50%)',
             backgroundColor: '#3b82f6',

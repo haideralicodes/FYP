@@ -49,7 +49,7 @@ function OurStory({ onAddSectionClick }) {
           }}
           style={{
             position: 'absolute',
-            top: '-30px',
+            top: '-25px',
             left: '50%',
             transform: 'translateX(-50%)',
             backgroundColor: '#3b82f6',

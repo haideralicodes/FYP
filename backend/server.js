@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const userRoutes = require('./controller/userRoutes');
+const productRoutes = require('./controller/productRoutes');
+const categoryRoutes = require('./controller/categoryRoutes');
+const cartRoutes = require('./controller/cartRoutes');
 
 const app = express();
 
@@ -14,7 +17,6 @@ app.get('/', (req, res) => {
   res.send('Welcome to the API!');
 });
 
-// const mongoUrl = 'mongodb+srv://haideralicodes:bcAZeKCMqmfOIodf@cluster0.l8h9q.mongodb.net/'
 
 mongoose.connect('mongodb://127.0.0.1:27017/userDB', {
 }).then(() => {
@@ -28,6 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', userRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/products', productRoutes);
+app.use('/categories', categoryRoutes);
+app.use('/carts', cartRoutes);
+
 
 app.listen(4000, () => {
   console.log('Server is running on port 4000');

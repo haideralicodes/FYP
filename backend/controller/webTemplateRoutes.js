@@ -1,18 +1,53 @@
 const express = require('express');
-const Navbar = require('../models/templateComponents/navbarModel'); 
+const HeroSection = require('../models/templateComponents/heroSectionModel'); // Ensure the model name is capitalized
 
 const router = express.Router();
 
-// Endpoint to get navbar data
-router.get('/navbar', async (req, res) => {
+// Endpoint to fetch the HeroSection data
+router.get('/heroSection', async (req, res) => {
+  console.log("Get Request");
   try {
-    const navbarData = await Navbar.findOne(); 
-    if (!navbarData) {
-      return res.status(404).json({ message: 'Navbar data not found' });
+    const heroSection = await HeroSection.findOne(); 
+    if (heroSection) {
+      console.log("Data Found");
+      return res.json(heroSection);
+    } else {
+      // If no hero section exists, create a new default one
+      const defaultHeroSection = new HeroSection({
+        heading: 'Discover Our Style', // Default heading
+        paragraph: 'Fashion for All Ages', // Default paragraph
+        image: '', // Default image placeholder
+      });
+      await defaultHeroSection.save();
+      return res.json(defaultHeroSection);
     }
-    res.json(navbarData);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).send('Server error');
+  }
+});
+
+// Endpoint to update HeroSection data in DB
+router.put('/heroSection', async (req, res) => {
+  console.log("Put Request");
+  const { heading, paragraph, image } = req.body;
+
+  try {
+    let heroSection = await HeroSection.findOne();
+    if (!heroSection) {
+      // If no record exists, create a new one
+      heroSection = new HeroSection({ heading, paragraph, image });
+    } else {
+      // Update existing hero section data
+      heroSection.heading = heading;
+      heroSection.paragraph = paragraph;
+      heroSection.image = image;
+    }
+    await heroSection.save();
+    return res.json(heroSection);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
   }
 });
 

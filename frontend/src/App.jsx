@@ -30,6 +30,7 @@ import CustomizeTemplateHeaderFashion from './pages/CustomizeTemplateHeaderFashi
 import CustomizeTemplateHeaderGadget from './pages/CustomizeTemplateHeaderGadget'
 
 import CustomizeWebsiteScreenFashion from './pages/CustomizeWebsite/CustomizeWebsiteScreen';
+import Checkout from './Templates/FashionStoreOne/Checkout';
 import CustomizeWebsiteScreenShoes from './pages/CustomizeWebsite/CustomizeWebsiteScreenShoes';
 import CustomizeWebsiteScreenBuety from './pages/CustomizeWebsite/CustomizeWebsiteScreenBuety';
 import CustomizeWebsiteScreenFurniture from './pages/CustomizeWebsite/CustomizeWebsiteScreenFurniture';
@@ -53,6 +54,8 @@ import BuetyStoreProducts from './Templates/BuetyStore/Products';
 import BuetyStoreCart from './Templates/BuetyStore/Cart';
 
 import VerifyEmail from './pages/Auth/VerifyEmail';
+
+import Payment from './pages/CustomizeWebsite/Payment';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -95,6 +98,7 @@ function App() {
 
         <Route path="/customize-website-screen/products" element={<ProtectedRoute element={<Products />} />} />
         <Route path="/customize-website-screen/cart" element={<ProtectedRoute element={<Cart />} />} />
+        <Route path="/customize-website-screen/checkout" element={<ProtectedRoute element={<Checkout />} />} />
 
         <Route path="/customize-website-screen/shoesStoreProducts" element={<ProtectedRoute element={<ShoesStoreProducts />} />} />
         <Route path="/customize-website-screen/shoesStoreCart" element={<ProtectedRoute element={<ShoesStoreCart />} />} />
@@ -108,6 +112,7 @@ function App() {
         <Route path="/dashboard/*" element={<ProtectedRoute element={<AppRouter />} />} />
         <Route path="/update-profile" element={<ProtectedRoute element={<UpdateProfile />} />} />
         <Route path="/Posters" element={<ProtectedRoute element={<Posters />} />} />
+        <Route path="/Payment" element={<ProtectedRoute element={<Payment />} />} />
 
         {/* Catch-all for undefined routes */}
         <Route path="/*" element={<ErrorPage />} />

@@ -22,6 +22,11 @@ function PreviewScreen({ hidden }) {
     document.documentElement.style.setProperty('--viewport-width', '100%');
   };
 
+  const handlePayment = () => {
+    console.log("HHHHHHHHH")
+    navigate('/payment'); 
+  };
+
   const handleCustomizeWebsite = () => {
 
     const businessStory = localStorage.getItem('businessStory');
@@ -54,7 +59,6 @@ function PreviewScreen({ hidden }) {
     }
   };
 
-
   const handleClick = () => {
     navigate('/dashboard'); 
   };
@@ -77,7 +81,7 @@ function PreviewScreen({ hidden }) {
         </div>
         <div className='mybtns'>
           <a onClick={handleCustomizeWebsite}>Customize Website</a>
-          <button>Publish</button>
+          <button onClick={handlePayment}>Publish</button>
         </div>
       </div>
     </section>

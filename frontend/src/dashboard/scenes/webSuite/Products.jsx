@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -9,41 +9,44 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Modal,
   Checkbox,
   Toolbar,
   Typography,
-  Stack
+  Stack,
+  Snackbar,
+  Alert,
 } from '@mui/material';
-import NewProductForm from './NewProductForm';  
-
-//  data
-const initialProducts = [
-  { id: 1, thumbnail: 'https://via.placeholder.com/50', name: 'Nike revolution 5', price: 255, sku: 'NJC44203-Brown-M', stock: 915, status: 'Available' },
-  { id: 2, thumbnail: 'https://via.placeholder.com/50', name: 'Nike react phantom run flyknit 2', price: 718, sku: 'NJC48508-Green-S', stock: 0, status: 'Out of Stock' },
-  { id: 3, thumbnail: 'https://via.placeholder.com/50', name: 'Nike react infinity run flyknit', price: 543, sku: 'NJC44141-Green-M', stock: 805, status: 'Available' },
-  { id: 4, thumbnail: 'https://via.placeholder.com/50', name: 'Nike court vision low', price: 904, sku: 'NJC78436-Black-X', stock: 712, status: 'Available' }
-];
+import axios from 'axios';
+import NewProductForm from './NewProductForm';
 
 const Products = () => {
-  const [open, setOpen] = useState(false);
-  const [products, setProducts] = useState(initialProducts);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [products, setProducts] = useState([]); // Products from DB
+  const [selectedProducts, setSelectedProducts] = useState([]); // Selected product IDs
+  const [isFormOpen, setIsFormOpen] = useState(false); // Control form visibility
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // Fetch products from the database
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/products/getProduct');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
 
-  // Handle select all checkbox
-  const handleSelectAll = (event) => {
-    if (event.target.checked) {
-      const allProductIds = products.map((product) => product.id);
-      setSelectedProducts(allProductIds);
-    } else {
-      setSelectedProducts([]);
-    }
+    fetchProducts();
+  }, []);
+
+  // Handle Product Addition
+  const handleProductAdded = (newProduct) => {
+    setProducts((prevProducts) => [...prevProducts, newProduct]);
+    setSnackbar({ open: true, message: 'Product added successfully!', severity: 'success' });
+    setIsFormOpen(false); // Close the form
   };
 
-  // Handle individual product selection
+  // Handle Product Selection
   const handleSelectProduct = (id) => {
     setSelectedProducts((prevSelected) =>
       prevSelected.includes(id)
@@ -52,90 +55,116 @@ const Products = () => {
     );
   };
 
-  // Determine if all products are selected
-  const isAllSelected = products.length > 0 && selectedProducts.length === products.length;
-
-  // Handle action button (e.g., delete, edit, disable, enable)
-  const handleDelete = () => {
-    const remainingProducts = products.filter((product) => !selectedProducts.includes(product.id));
-    setProducts(remainingProducts);
-    setSelectedProducts([]);
+  // Handle Select All Products
+  const handleSelectAll = (event) => {
+    if (event.target.checked) {
+      const allProductIds = products.map((product) => product._id);
+      setSelectedProducts(allProductIds);
+    } else {
+      setSelectedProducts([]);
+    }
   };
+
+  const handleDeleteProducts = async () => {
+    try {
+      // Make sure the correct endpoint is used here
+      await axios.post('http://localhost:4000/products/deleteProduct', {
+        ids: selectedProducts, // Send 'ids' as expected by backend
+      });
+  
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => !selectedProducts.includes(product._id))
+      );
+      setSelectedProducts([]);
+      setSnackbar({ open: true, message: 'Products deleted successfully!', severity: 'success' });
+    } catch (error) {
+      setSnackbar({ open: true, message: 'Error deleting products!', severity: 'error' });
+      console.error('Error deleting products:', error);
+    }
+  };
+  
 
   return (
     <Box sx={{ p: 4 }}>
-      {/* New Product Button */}
-      <Button variant="contained" color="primary" onClick={handleOpen}>
-        New Product
-      </Button>
+      {/* Toolbar */}
+      <Toolbar>
+        <Button variant="contained" color="primary" onClick={() => setIsFormOpen(true)} sx={{ mr: 2 }}>
+          New Product
+        </Button>
+        {selectedProducts.length > 0 && (
+          <Button variant="contained" color="error" onClick={handleDeleteProducts}>
+            Delete Selected
+          </Button>
+        )}
+      </Toolbar>
 
-      {/* Action buttons based on selected products */}
-      {selectedProducts.length > 0 && (
-        <Toolbar sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
-          <Stack direction="row" spacing={2}>
-            <Button variant="outlined" color="error" onClick={handleDelete}>
-              Delete
-            </Button>
-            <Button variant="outlined" color="primary">
-              Edit
-            </Button>
-            <Button variant="outlined" color="secondary">
-              Disable
-            </Button>
-            <Button variant="outlined" color="success">
-              Enable
-            </Button>
-          </Stack>
-        </Toolbar>
-      )}
-
-      {/* Table */}
-      <TableContainer component={Paper} sx={{ mt: 4 }}>
+      {/* Products Table */}
+      <TableContainer component={Paper} sx={{ mt: 2 }}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
                 <Checkbox
-                  indeterminate={selectedProducts.length > 0 && selectedProducts.length < products.length}
-                  checked={isAllSelected}
+                  indeterminate={
+                    selectedProducts.length > 0 && selectedProducts.length < products.length
+                  }
+                  checked={products.length > 0 && selectedProducts.length === products.length}
                   onChange={handleSelectAll}
                 />
               </TableCell>
-              <TableCell>Thumbnail</TableCell>
+              <TableCell>Image</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Price</TableCell>
-              <TableCell>SKU</TableCell>
               <TableCell>Stock</TableCell>
-              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {products.map((product) => (
-              <TableRow key={product.id} selected={selectedProducts.includes(product.id)}>
+              <TableRow key={product._id}>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedProducts.includes(product.id)}
-                    onChange={() => handleSelectProduct(product.id)}
+                    checked={selectedProducts.includes(product._id)}
+                    onChange={() => handleSelectProduct(product._id)}
                   />
                 </TableCell>
                 <TableCell>
-                  <img src={product.thumbnail} alt={product.name} style={{ width: 50, height: 50 }} />
+                  <img
+                    src={product.images?.[0]} // Display the first image
+                    alt={product.name}
+                    style={{ width: 50, height: 50, objectFit: 'cover' }}
+                  />
                 </TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>${product.price}</TableCell>
-                <TableCell>{product.sku}</TableCell>
                 <TableCell>{product.stock}</TableCell>
-                <TableCell>{product.stock > 0 ? '✔' : '✘'}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
 
-      {/* Modal for New Product Form */}
-      <Modal open={open} onClose={handleClose}>
-        <NewProductForm onClose={handleClose} />
-      </Modal>
+      {/* New Product Form */}
+      {isFormOpen && (
+        <NewProductForm
+          onClose={() => setIsFormOpen(false)}
+          onProductAdded={handleProductAdded}
+        />
+      )}
+
+      {/* Snackbar */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          severity={snackbar.severity}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

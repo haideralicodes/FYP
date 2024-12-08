@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FaPlusCircle, FaPager, FaFileAlt } from 'react-icons/fa';
+import ImageIcon from '@mui/icons-material/Image';
 import './CustomizeWebsiteSidebar.css';
 
 const sidebarItems = [
   { icon: <FaPlusCircle />, id: 'plus' },
-  { icon: <FaPager />, id: 'pager' },
-  { icon: <FaFileAlt />, id: 'file' },
+  { icon: <FaPager />, id: 'addNewSection' },
+  // { icon: <ImageIcon />, id: 'file' },
 ];
 
 const CustomizeWebsiteSidebar = ({ onItemClick }) => {

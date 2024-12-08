@@ -1,55 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Button,
   TextField,
   Typography,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Checkbox,
+  Grid,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-// Dummy products data with images
-const productsData = [
-  { id: 1, name: 'Product A', image: 'https://via.placeholder.com/150' },
-  { id: 2, name: 'Product B', image: 'https://via.placeholder.com/150' },
-  { id: 3, name: 'Product C', image: 'https://via.placeholder.com/150' },
-  { id: 4, name: 'Product D', image: 'https://via.placeholder.com/150' },
-];
+import axios from 'axios';
 
 const NewCategoryPage = () => {
   const [categoryName, setCategoryName] = useState('');
   const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('Enabled');
-  const [includeInMenu, setIncludeInMenu] = useState(true);
-  const [selectedProducts, setSelectedProducts] = useState([]); // Add product selection logic here
-  const [categoryImages, setCategoryImages] = useState(null); // For image upload
-  const [dialogOpen, setDialogOpen] = useState(false); // For opening product selection dialog
+  const [selectedProducts, setSelectedProducts] = useState([]); 
+  const [categoryImages, setCategoryImages] = useState(null); 
+  const [dialogOpen, setDialogOpen] = useState(false); 
+  const [productsData, setProductsData] = useState([]); 
   const navigate = useNavigate();
+
+  // Fetch products from the backend API
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/products/getProduct');
+      setProductsData(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const handleImageUpload = (event) => {
     setCategoryImages(event.target.files);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle submit logic here, like sending data to the backend
-    console.log({
-      categoryName,
-      description,
-      status,
-      includeInMenu,
-      selectedProducts,
-      categoryImages,
-    });
-    navigate('/'); // Redirect back to categories page after creation
+    const formData = new FormData();
+
+    // Append category data
+    formData.append('name', categoryName);
+    formData.append('description', description);
+    formData.append('selectedProducts', JSON.stringify(selectedProducts));
+
+    // Append images
+    if (categoryImages) {
+      for (let i = 0; i < categoryImages.length; i++) {
+        formData.append('images', categoryImages[i]);
+      }
+    }
+
+    try {
+      // Submit the form data to the backend to create a new category
+      await axios.post('http://localhost:4000/categories/create', formData);
+      navigate('/'); // Redirect to the categories page after creation
+    } catch (error) {
+      console.error('Error creating category:', error);
+    }
   };
 
   const handleProductSelect = (productId) => {
@@ -88,17 +101,6 @@ const NewCategoryPage = () => {
           rows={4}
         />
 
-        <Typography>Status</Typography>
-        <RadioGroup value={status} onChange={(e) => setStatus(e.target.value)} row>
-          <FormControlLabel value="Enabled" control={<Radio />} label="Enabled" />
-          <FormControlLabel value="Disabled" control={<Radio />} label="Disabled" />
-        </RadioGroup>
-
-        <FormControlLabel
-          control={<Checkbox checked={includeInMenu} onChange={() => setIncludeInMenu(!includeInMenu)} />}
-          label="Include in Menu"
-        />
-
         {/* Button Container for all action buttons */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
           {/* Add Product Button */}
@@ -134,7 +136,7 @@ const NewCategoryPage = () => {
         <DialogContent>
           <Grid container spacing={2}>
             {productsData.map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product.id}>
+              <Grid item xs={12} sm={6} md={4} key={product._id}>
                 <Box
                   sx={{
                     border: '1px solid #ccc',
@@ -145,16 +147,16 @@ const NewCategoryPage = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <img src={product.image} alt={product.name} style={{ width: '100%', height: 'auto', borderRadius: '4px' }} />
+                  <img src={product.images[0]} alt={product.name} style={{ width: '100%', height: 'auto', borderRadius: '4px' }} />
                   <Typography variant="h6" sx={{ mt: 1 }}>
                     {product.name}
                   </Typography>
                   <Button
                     variant="outlined"
-                    onClick={() => handleProductSelect(product.id)}
+                    onClick={() => handleProductSelect(product._id)}
                     sx={{ mt: 1 }}
                   >
-                    {selectedProducts.includes(product.id) ? 'Deselect' : 'Select'}
+                    {selectedProducts.includes(product._id) ? 'Deselect' : 'Select'}
                   </Button>
                 </Box>
               </Grid>

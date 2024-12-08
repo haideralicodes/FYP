@@ -1,47 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './TopPicks.css';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import product1 from './assets/product1.webp';
-import product2 from './assets/product2.webp';
-import product3 from './assets/product3.webp';
-import product4 from './assets/product4.webp';
-import product5 from './assets/product5.webp';
+import axios from 'axios'; // Import axios for API requests
 
 function TopPicks({ onAddSectionClick }) {
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const topPicksRef = useRef(null);
   const [heading, setHeading] = useState('Top Picks');
+  const [products, setProducts] = useState([]); // State to store fetched products
 
-  const products = [
-    {
-      productSrc: product1,
-      productName: "Product 1 Name",
-      productPrice: "Rs 2000"
-    },
-    {
-      productSrc: product2,
-      productName: "Product 2 Name",
-      productPrice: "Rs 2500"
-    },
-    {
-      productSrc: product3,
-      productName: "Product 3 Name",
-      productPrice: "Rs 1800"
-    },
-    {
-      productSrc: product4,
-      productName: "Product 4 Name",
-      productPrice: "Rs 3000"
-    },
-    {
-      productSrc: product5,
-      productName: "Product 5 Name",
-      productPrice: "Rs 1500"
-    }
-  ];
+  // Fetch products from the backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/products/getProduct'); // Adjust the endpoint accordingly
+        setProducts(response.data); // Update state with fetched products
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts(); // Call the function to fetch products
+  }, []);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
@@ -57,7 +39,6 @@ function TopPicks({ onAddSectionClick }) {
   };
 
   useEffect(() => {
-
     const savedHeading = localStorage.getItem('topPicksHeading');
     if (savedHeading) {
       setHeading(savedHeading);
@@ -85,11 +66,11 @@ function TopPicks({ onAddSectionClick }) {
   };
 
   return (
-    <section 
+    <section
       className="top-picks"
       ref={topPicksRef}
       onClick={handleClickInside}
-      style={{ border: isSelected ? '3px solid blue' : 'none', cursor:"pointer" }}
+      style={{ border: isSelected ? '3px solid blue' : 'none', cursor: 'pointer' }}
     >
       {showButton && (
         <button
@@ -100,7 +81,7 @@ function TopPicks({ onAddSectionClick }) {
           }}
           style={{
             position: 'absolute',
-            top: '1140px',
+            top: '1030px',
             left: '50%',
             transform: 'translateX(-50%)',
             backgroundColor: '#3b82f6',
@@ -121,7 +102,7 @@ function TopPicks({ onAddSectionClick }) {
       )}
       <h2
         contentEditable
-        className='editable'
+        className="editable"
         suppressContentEditableWarning={true}
         onBlur={handleHeadingChange}
         style={{
@@ -132,7 +113,7 @@ function TopPicks({ onAddSectionClick }) {
       >
         {heading}
       </h2>
-      <div 
+      <div
         className="carousel-container"
         style={{
           border: isSelected ? '1px solid blue' : 'none',
@@ -144,9 +125,13 @@ function TopPicks({ onAddSectionClick }) {
         <div className="carousel">
           {products.slice(currentIndex, currentIndex + 4).map((product, idx) => (
             <div key={idx} className="product-item">
-              <img src={product.productSrc} alt={product.productName} />
-              <h3>{product.productName}</h3>
-              <p>{product.productPrice}</p>
+              <img
+                src={product.images?.[0]} 
+                alt={product.name}
+                style={{ width: '200px', height: '250px', objectFit: 'cover' }}
+              />
+              <h3>{product.name}</h3>
+              <p>Rs {product.price}</p>
             </div>
           ))}
         </div>
